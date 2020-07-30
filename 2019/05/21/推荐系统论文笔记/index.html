@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="北流的笔记小屋" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: './public/search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="本文主要介绍一些自己阅读推荐统的论文笔记，会不定期更新，目前是排序学习的一些相关论文。  排序是对一组物品列表按照某种方式进行排序，来最大化整个列表的效用的过程，广泛应用于搜索引擎、推荐系统、机器翻译、对话系统甚至计算生物学。一些监督机器学习技术经常被广泛应用在这些问题中，这些技术称作排序学习技术。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统论文笔记">
+<meta property="og:url" content="http://yoursite.com/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="北流的笔记小屋">
+<meta property="og:description" content="本文主要介绍一些自己阅读推荐统的论文笔记，会不定期更新，目前是排序学习的一些相关论文。  排序是对一组物品列表按照某种方式进行排序，来最大化整个列表的效用的过程，广泛应用于搜索引擎、推荐系统、机器翻译、对话系统甚至计算生物学。一些监督机器学习技术经常被广泛应用在这些问题中，这些技术称作排序学习技术。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/DeepFM%E7%9A%84%E6%A1%86%E6%9E%B6.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/DeepFM%E4%B8%ADFM%E9%83%A8%E5%88%86.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/DeepFM%E4%B8%ADDeep%E9%83%A8%E5%88%86.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/DeepFM%E5%B5%8C%E5%85%A5%E9%83%A8%E5%88%86%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/FNN%E3%80%81PNN%E5%92%8CWide&Deep%E6%A8%A1%E5%9E%8B%E6%A1%86%E6%9E%B6.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/BPR%E8%BD%AC%E6%8D%A2%E7%9F%A9%E9%98%B5.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/RankNet%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B.png">
+<meta property="article:published_time" content="2019-05-21T08:58:20.000Z">
+<meta property="article:modified_time" content="2019-11-28T13:36:23.699Z">
+<meta property="article:author" content="刘坤池">
+<meta property="article:tag" content="推荐系统">
+<meta property="article:tag" content="排序学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/DeepFM%E7%9A%84%E6%A1%86%E6%9E%B6.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>推荐系统论文笔记 | 北流的笔记小屋</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <script type="text/javascript" color="0,0,0" opacity='0.5' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北流的笔记小屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">近城远山，都是人间。</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-fw fa-calendar"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="刘坤池">
+      <meta itemprop="description" content="竹贵有节，学贵有恒。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北流的笔记小屋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          推荐系统论文笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-21 16:58:20" itemprop="dateCreated datePublished" datetime="2019-05-21T16:58:20+08:00">2019-05-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-28 21:36:23" itemprop="dateModified" datetime="2019-11-28T21:36:23+08:00">2019-11-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
+                    <span itemprop="name">推荐系统</span>
+                  </a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文主要介绍一些自己阅读推荐统的论文笔记，会不定期更新，目前是排序学习的一些相关论文。</p>
+<ul>
+<li>排序是对一组物品列表按照某种方式进行排序，来最大化整个列表的效用的过程，广泛应用于搜索引擎、推荐系统、机器翻译、对话系统甚至计算生物学。一些监督机器学习技术经常被广泛应用在这些问题中，这些技术称作排序学习技术。<a id="more"></a>
+</li>
+</ul>
+<h1 id="《DeepFM-A-Factorization-Machine-based-Neural-Network-for-CTR-Prediction》"><a href="#《DeepFM-A-Factorization-Machine-based-Neural-Network-for-CTR-Prediction》" class="headerlink" title="《DeepFM: A Factorization-Machine based Neural Network for CTR Prediction》"></a>《DeepFM: A Factorization-Machine based Neural Network for CTR Prediction》</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><a href="https://arxiv.org/pdf/1703.04247.pdf" target="_blank" rel="noopener">DeepFM</a>是2017年提出的一种端到端模型，它解决了Wide &amp; Deep Learning中<strong>手工设计特征</strong>的问题。DeepFM融合了Factorization Machine(FM)的推荐优势和Deep Learing的特征提取优势。其中FM部分能够建模特征间的低阶关联，Deep部分能够建模特征间的高阶关联。</p>
+<p>DeepFM的主要优势如下：</p>
+<ul>
+<li>FM+DNN：FM部分实现低阶的特征提取，DNN实现高阶的特征提取。同时无需做特征工程。</li>
+<li>训练高效：DeepFM的FM部分和Deep部分共享同一输入向量和嵌入向量。</li>
+</ul>
+<h2 id="DeepFM方法详解"><a href="#DeepFM方法详解" class="headerlink" title="DeepFM方法详解"></a>DeepFM方法详解</h2><p>假设数据集包含$n$个样本$(\mathbf{x},y)$，其中$y$是标签，取0和1；$\mathbf{x}$是由m个fields组成的数据，每条数据由$(u,i)$数据对组成，$u$和$i$分别指的是点播影院辅助信息和影片描述特征，它们可以包括类别字段（比如点播影院的省份、城市、影片的类型等），又可以包括连续值特征（比如影片评分等），其中类别型特征使用one-hot方式来表示，连续值特征先根据其分布离散化后，再使用one-hot方式表示。</p>
+<h3 id="DeepFM"><a href="#DeepFM" class="headerlink" title="DeepFM"></a>DeepFM</h3><p>DeepFM包含两部分：FM部分与Deep部分，分别负责低阶特征的提取和高阶特征的提取。这两部分共享同样的输入。对于特征$i$，标量$w_i$ 用于表示其一阶权重。隐向量$\mathbf{v}_i$用以表示特征$i$与其他特征之间的相互作用。$\mathbf{v}_i$在FM部分是用以对2阶特征进行建模，即特征之间的相互作用；$\mathbf{v}_i$输入到Deep部分则是用以进行高阶特征建模。DeepFM的预测结果可以写为：</p>
+<script type="math/tex; mode=display">
+\hat{y}=\sigma(y_{FM}(\mathbf{x})+y_{DNN}(\mathbf{x}))</script><p>DeepFM的框架如下：</p>
+<img src="/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/DeepFM%E7%9A%84%E6%A1%86%E6%9E%B6.png" class="" title="This is an image">
+<p>上图是，它将Wide&amp;Deep Learning中的Wide组件使用FM替换，并且两部分共享同一输入向量和嵌入向量。</p>
+<p>其中最下面的稀疏特征层中，黄色圈和蓝色圈表示经过one-hot编码后原始稀疏特征(分别取值1和0)，可以看到每个field中的黄色圈都有一条直接指向FM层中的Addition黑色的线，这代表FM中的一阶项；由Dense Embeddings层中指向FM的红色线代表的是FM模型中二阶项的$w_{ij}=⟨\mathbf{v}_i,\mathbf{v}_j⟩$中的$\mathbf{v}_i$和$\mathbf{v}_j$；而指向Deep部分中的黑色的线是稀疏特征嵌入后的稠密特征。</p>
+<p>另外，之所以说不需要人工特征工程，是因为交叉特征工作是模型自动进行的，在输入侧不需要手动进行交叉特征处理。</p>
+<h3 id="FM部分"><a href="#FM部分" class="headerlink" title="FM部分"></a>FM部分</h3><p>FM部分是一个因子分解机。因为引入了隐变量的原因，对于几乎不出现或者很少出现的隐变量，FM也可以很好的学习。</p>
+<img src="/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/DeepFM%E4%B8%ADFM%E9%83%A8%E5%88%86.png" class="" title="This is an image">
+<p>FM的输出公式如下：</p>
+<script type="math/tex; mode=display">
+y(\mathbf{x})=w_0+\sum_{i=1}^n(w_i\mathbf{x})+\sum_{i=1}^{n-1}\sum_{j=i+1}^{n}<\mathbf{v}_i,\mathbf{v}_j>\mathbf{x}_i\mathbf{x}_j</script><h3 id="Deep部分"><a href="#Deep部分" class="headerlink" title="Deep部分"></a>Deep部分</h3><p>深度部分是一个前馈神经网络,用以获取高阶特征间相互作用。与图像或者语音这类连续而且密集的输入不同，它的的输入一般是极其稀疏，超高维，离散型和连续型混合且多字段的。因此这儿需要在第一层隐含层之前，引入一个嵌入层来将输入向量压缩到低维稠密向量。</p>
+<img src="/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/DeepFM%E4%B8%ADDeep%E9%83%A8%E5%88%86.png" class="" title="This is an image">
+<p><strong>嵌入层的网络结构</strong>如下：</p>
+<img src="/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/DeepFM%E5%B5%8C%E5%85%A5%E9%83%A8%E5%88%86%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84.png" class="" title="This is an image">
+<p>这个网络结构有两个关键点：</p>
+<ul>
+<li>虽然输入的每个field向量长度不一样，但是它们embedding出来的长度是固定的，上图示例的嵌入长度是k=5；</li>
+<li>FM中的隐向量$V$作为该嵌入层的权重矩阵，以实现输入的field向量压缩到embedding向量的转换。隐向量$v_{ik}$是嵌入层中第i个field连接到嵌入层第k个节点的权重。</li>
+</ul>
+<p>这里的第二点可以这样理解：假设我们的k=5，首先，对于输入的一条记录，同一个field 只有一个位置是1，那么在由输入得到dense向量的过程中，输入层只有一个神经元起作用，得到的dense向量其实就是输入层embedding层该神经元相连的五条线的权重，即$v_{i1}，v_{i2}，v_{i3}，v_{i4}，v_{i5}$ 。这五个值组合起来就是我们在FM中所提到的$\mathbf{v}_i$,在FM部分和DNN部分，这一块是共享权重的，对同一个特征来说，得到的$\mathbf{v}_i$是相同的。</p>
+<h2 id="与其他神经网络的关系"><a href="#与其他神经网络的关系" class="headerlink" title="与其他神经网络的关系"></a>与其他神经网络的关系</h2><p>下面是FNN、PNN和Wide&amp;Deep模型框架：</p>
+<img src="/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/FNN%E3%80%81PNN%E5%92%8CWide&Deep%E6%A8%A1%E5%9E%8B%E6%A1%86%E6%9E%B6.png" class="" title="This is an image">
+<p><strong>FNN</strong>是一个FM初始化的前馈神经网络，与DeepFM不同，它是用FM预训练出来的$V$来对Deep部分进行初始化，仅提取到了高阶特征，它有两个限制。</p>
+<ul>
+<li>嵌入层参数可能受FM影响过大。</li>
+<li>预训练阶段引入的开销降低了效率。</li>
+</ul>
+<p><strong>PNN</strong>为了捕获高阶交叉特征，PNN在嵌入层和第一层隐藏层之间增加了一个product层，根据 product 的不同，衍生出三种 PNN：IPNN，OPNN，PNN* 分别对应内积、外积、两者混合。和FNN一样，它只能学习到高阶的特征组合，没有对于1阶和2阶特征进行建模。</p>
+<p><strong>Wide&amp;Deep</strong>将Wide组件和Deep组件进行融合，同时学习低阶和高阶特征，但是wide部分需要人工构造交叉特征。</p>
+<p>下面是它们关于是否需要预训练、是否提取了高阶、低阶特征以及是否需要特征工程的比较：</p>
+
+<h2 id="实验部分"><a href="#实验部分" class="headerlink" title="实验部分"></a>实验部分</h2><p>在这篇论文的实验部分中，介绍了所使用的数据集Criteo Dataset和Company∗ Dataset、评估指标AUC和Logloss、性能评估(CPU训练时间和GPU训练时间)、以及超参数学习（包括激活函数、弃权（Dropout）概率、每层神经元数目、隐藏层数目和网络形状）。</p>
+<h1 id="《BPR-Bayesian-Personalized-Ranking-from-Implicit-Feedback》"><a href="#《BPR-Bayesian-Personalized-Ranking-from-Implicit-Feedback》" class="headerlink" title="《BPR: Bayesian Personalized Ranking from Implicit Feedback》"></a>《BPR: Bayesian Personalized Ranking from Implicit Feedback》</h1><h2 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h2><p>目前排序算法大致被分为三类，分别是点对排序(Pointwise)、成对排序(Pairwise)和列表排序(Listwise)。BPR(Bayesian Personalized Ranking，贝叶斯个性化排序)就是属于成对方法（Pairwise）中的一种，成对排序对物品顺序关系是否合理进行判断，判断任意两个物品组成的物品对$<item1,item2>$，是否满足顺序关系，从而最终完成物品的排序任务来得到推荐列表。</p>
+<h2 id="BPR建模思路"><a href="#BPR建模思路" class="headerlink" title="BPR建模思路"></a>BPR建模思路</h2><p>它基于这样的假设，比起其他没有被交互过的物品而言，用户更喜爱对交互过物品(而对于用户交互过的物品对之间不假设偏序关系，同样，对于用户没有交互过的物品对之间也不假设偏序关系)。从而将 “用户-物品 ”交互矩阵可以转换为物品对偏序关系矩阵。如下图所示：</p>
+<img src="/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/BPR%E8%BD%AC%E6%8D%A2%E7%9F%A9%E9%98%B5.png" class="" title="This is an image">
+<p>上述是交互矩阵转换为物品偏序对矩阵的过程。所有用户的物品偏序对矩阵可以表示成3元组$&lt; u,i,j >$，该三元组的含义为：相对于物品$j$，用更喜欢物品$i$，使用符号$i &gt;_u j$表示。令$D_s = \{(u,i,j)|i \in I_u^+  \cap j \in I \backslash I_u^+ \}$。$I_{u}^{+}$表示用户$u$交互过的物品集合，同理，$U_{i}^{+}$表示与物品$i$交互过的用户集合，</p>
+<p>在此基础上 ,作者提出了基于贝叶斯的个性化排序算法，其目标是最大化物品排序的后验概率。它有如下两个假设：一是每个用户对物品的偏好与其他用户无关，即，用户的偏好行为相互独立；二是每个用户在物品$i$和物品$j$之间的偏好和其他商品无关，即，每个用户对不同物品的偏序相互独立。</p>
+<p>在BPR中，排序关系符号$&gt;_u$满足完整性、反对称性和传递性，即对于用户集$U$和物品集$I$：</p>
+<ol>
+<li>完整性：$\forall i,j\in I:i\neq j \Rightarrow i &gt;_u j \cup j&gt;_ui$</li>
+<li>反对称性：$\forall i,j\in I:i&gt;_uj \cap j&gt;_ui\Rightarrow i=j$</li>
+<li>传递性：$\forall i,j,k\in I:i&gt;_uj \cap j&gt;_uk\Rightarrow i&gt;_uk$</li>
+</ol>
+<p>另外，BPR用到了和funkSVD相似的矩阵分解模型，它满足：</p>
+<script type="math/tex; mode=display">
+\overline{X}=WH^T</script><p>其中左边$\overline{X}$表示BPR对于用户$U$和物品集$I$的对应的$U\times I$的预测排序矩阵，右边$H^T$分别表示希望得到的分解后的用户矩阵$W(|U|\times k)$和物品矩阵$H(|I|\times k)$。BPR是基于用户维度的，故，对于任意一个用户$u$，对应的任一个物品$i$，我们期望有：</p>
+<script type="math/tex; mode=display">
+\overline{x}_{ui}=w_u \cdot h_i=\sum_{f=1}^{k}w_{uf}h_{if}</script><p>最终目标是希望找到合适的矩阵$W$和$H$，让$\overline{X}$和$X$最相似。下面第3部分BPR的优化思路部分会介绍它和funkSVD有何不同。</p>
+<h2 id="BPR的算法优化思路"><a href="#BPR的算法优化思路" class="headerlink" title="BPR的算法优化思路"></a>BPR的算法优化思路</h2><p>BPR基于最大后验估计$P(W,H|&gt;_u)$来求解模型参数$W,H$，这里我们用$\Theta$来表示模型的参数$W,H$，$&gt;_u$代表用户$u$对应所有商品的全序关系，则优化目标是$P(\Theta|&gt;_u)$。根据贝叶斯公式，我们有：</p>
+<script type="math/tex; mode=display">
+P(\Theta|>_u)=\frac{P(>_u|\Theta)P(\Theta)}{P(>_u)}</script><p>由于我们求解假设了用户的排序和其他用户无关，那么对任意用户$u$来说，$P(&gt;_u)$对所有的物品一样，所以有：</p>
+<script type="math/tex; mode=display">
+P(\Theta|>_u)\propto P(>_u|\Theta)P(\Theta)</script><p>可以看出优化目标转化为两部分。$P(&gt;_u|\Theta)$和样本数据集$D_s$有关，$P(\Theta)$和样本数据集$D_s$无关。</p>
+<p>对于第一部分（似然部分），我们假设了用户之间偏好独立，对不同商品偏序独立，故有：</p>
+<script type="math/tex; mode=display">
+\prod_{u \in U}P(>_u|\Theta) = \prod_{(u,i,j)\in (U\times I \times I)}P(i>_uj|\Theta)^{\delta((u,i,j)\in D_s)}(1-P(i>_uj|\Theta))^{\delta((u,j,i)\notin D_s)}</script><p>其中，</p>
+<script type="math/tex; mode=display">
+\delta(b)=
+\begin{cases}
+1,& if \ b \ is \ true\\
+0,& else
+\end{cases}</script><p>根据第2部分介绍到的完整性和反对称性，优化目标的第一部分可以简化为：</p>
+<script type="math/tex; mode=display">
+\prod_{u \in U}P(>_u|\Theta) = \prod_{(u,i,j)\in D_s}P(i>_uj|\Theta)</script><p>而对于$P(i&gt;_uj|\Theta)$这个概率，我们可以使用下面这个式子来代替：</p>
+<script type="math/tex; mode=display">
+P(i>_uj|\Theta)=\sigma(\overline{x}_{uij}(\Theta))</script><p>其中$\sigma(x)$是sigmoid函数，对于$\overline{x}_{uij}(\Theta)$，我们要满足当$i&gt;_uj$时，$\overline{x}_{uij}(\Theta)&gt;0$，反之，当$j &gt;_u i$时，$\overline{x}_{uij}(\Theta)&lt;0$；那么最简单表示这个性质的方法就是：</p>
+<script type="math/tex; mode=display">
+\overline{x}_{uij}(\Theta) = \overline{x}_{ui}(\Theta)-\overline{x}_{uj}(\Theta)</script><p>而$\overline{x}_{ui},\overline{x}_{uj}$就是矩阵$\overline{X}$对应位置的值，为了方便，暂不写$\Theta$；最终，第一部分的优化目标转化为：</p>
+<script type="math/tex; mode=display">
+\prod_{u \in U}P(>_u|\Theta) = \prod_{(u,i,j)\in D_s}\sigma(\overline{x}_{ui}-\overline{x}_{uj})</script><p>对于第二部$P(\Theta)$，即，先验部分，可以根据参数的假设分布选择，如高斯分布：均值为0，协方差矩阵是$\lambda_\Theta I$，如下：</p>
+<script type="math/tex; mode=display">
+P(\Theta) \sim N(0,\lambda_\Theta I)</script><p>其中$\lambda_\Theta $是模型的正则化参数。最终，可以得到最大对数后验估计函数：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\ln P(\Theta|>_u)
+&\propto \ln P(>_u|\Theta)P(\Theta)\\
+&=\ln\prod_{(u,i,j)\in D_s}\sigma(\overline{x}_{ui}-\overline{x}_{uj})+\ln P(\Theta)\\
+&=\sum_{(u,i,j)\in D}\ln \sigma(\overline{x}_{ui}-\overline{x}_{uj})+\lambda||\Theta||^2
+\end{aligned}</script><p>由于</p>
+<script type="math/tex; mode=display">
+\overline{x}_{ui}-\overline{x}_{uj} = \sum_{f=1}^{k}w_{uf}h_{if}-\sum_{f=1}^{k}w_{uf}h_{jf}</script><p>我们求偏导可以得到如下式子：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\frac{\partial (\overline{x}_{ui} - \overline{x}_{uj})}{\partial \Theta} 
+&= \begin{cases} (h_{if}-h_{jf})& {if\; \Theta = w_{uf}}\\ w_{uf}& {if\;\Theta = h_{if}} \\ -w_{uf}& {if\;\Theta = h_{jf}}\end{cases}
+\end{aligned}</script><h2 id="BPR的算法流程"><a href="#BPR的算法流程" class="headerlink" title="BPR的算法流程"></a>BPR的算法流程</h2><p>下面简要总结下BPR的算法训练流程：</p>
+<p>输入：训练集$D_s$三元组，梯度步长$\alpha$， 正则化参数$\lambda$,分解矩阵维度$k$。　　　　　　　　　　</p>
+<p>输出：模型参数，矩阵W,H。</p>
+<ol>
+<li><p>随机初始化矩阵$W,H$</p>
+</li>
+<li><p>迭代更新参数：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+w_{uf}=w_{uf}+\alpha(\sum_{(u,i,j)\in D_s}\frac{1}{1+e^{\overline{x}_{ui}-\overline{x}_{uj}}}(h_{if}-h_{jf})+\lambda w_{uf})\\
+h_{if}=h_{if}+\alpha(\sum_{(u,i,j)\in D_s}\frac{1}{1+e^{\overline{x}_{ui}-\overline{x}_{uj}}}w_{uf}+\lambda h_{if})\\
+h_{jf}=h_{jf}+\alpha(\sum_{(u,i,j)\in D_s}\frac{1}{1+e^{\overline{x}_{ui}-\overline{x}_{uj}}}w_{uf}+\lambda h_{jf})
+\end{aligned}</script></li>
+<li><p>如果$W,H$收敛，则算法结束，输出$W,H$；否则回到步骤2。</p>
+</li>
+</ol>
+<p>当我们得到$W,H$后，可以计算出每一个用户$u$对应的任意一个商品的排序分数，最终选择排序分最高的若干商品输出。</p>
+<h2 id="BPR总结"><a href="#BPR总结" class="headerlink" title="BPR总结"></a>BPR总结</h2><p>BPR是基于矩阵分解的一种排序算法，但是和funkSVD之类的算法比，它不是做全局的评分优化，而是针对每一个用户自己的商品喜好分别做排序优化。这篇文章的主要贡献就是提出了上述BPR优化目标。BPR优化目标中的模型$\Theta$可以使用多种多样的模型，包括协同过滤、神经网络等等。</p>
+<h1 id="《From-RankNet-to-LambdaRank-to-LambdaMART-An-Overview》"><a href="#《From-RankNet-to-LambdaRank-to-LambdaMART-An-Overview》" class="headerlink" title="《From RankNet to LambdaRank to LambdaMART: An Overview》"></a>《From RankNet to LambdaRank to LambdaMART: An Overview》</h1><h2 id="介绍-2"><a href="#介绍-2" class="headerlink" title="介绍"></a>介绍</h2><p>LambdaMART是LambdaRank的提升树版本，而LambdaRank又是基于pairwise的RankNet。因此LambdaMART本质上也是属于pairwise排序算法，只不过引入Lambda梯度后，还显示的考察了列表级的排序指标，如NDCG等，将排序问题转化为回归决策树问题。因此，它算作是listwise中的一种排序算法。</p>
+<p>LambdaMART模型从名字上可以拆分成Lambda和MART两部分：</p>
+<ul>
+<li>MART表示底层训练模型用的是MART（Multiple Additive Regression Tree），也就是GBDT（GradientBoosting Decision Tree）。</li>
+<li>Lambda是<strong>MART求解过程使用的梯度</strong>，其物理含义是一个待排序的物品列表下一次迭代时应该调整的排序方向（向上或者向下）和强度。</li>
+</ul>
+<p>将MART和Lambda组合起来就是我们要介绍的LambdaMART。</p>
+<p>下面逐个介绍RankNet、LambdaRank和LambdaMART三个模型。</p>
+<h2 id="RankNet"><a href="#RankNet" class="headerlink" title="RankNet"></a>RankNet</h2><p>RankNet是一个pairwise模型，它和BPR非常像。创新之处都在于，原本Ranking常见的排序问题评价指标（NDCG、ERR、MAP和MRR）都无法求梯度，因此没法直接对评价指标做梯度下降，而它们将不适宜用梯度下降求解的 Ranking 问题，转化为对偏序概率的交叉熵损失函数的优化问题，从而适用梯度下降方法。</p>
+<p>RankNet的最终目标是得到一个带参的算分函数：</p>
+<script type="math/tex; mode=display">
+s=f(x;w)</script><p>根据这个算分函数，我们可以计算物品$x_i$和$x_j$的得分$s_i$和$s_j$，即：</p>
+<script type="math/tex; mode=display">
+s_i = f(x_i;w)   \ \ \ \ s_j=f(x_j;w)</script><p>然后根据得分计算二者的偏序概率：</p>
+<script type="math/tex; mode=display">
+P_{ij}=P(x_i\rhd x_j)=\frac{1}{1+e^{-\sigma\cdot(s_i-s_j)}}</script><p>其中$\sigma$是Sigmoid函数的参数，决定了Sigmoid曲线的形状。RankNet证明了如果知道一个待排序物品的排列中相邻两个物品之间的排序概率，则通过推导可以算出每两个物品之间的排序概率。因此对于一个待排序物品序列，只需计算相邻物品之间的排序概率，不需要计算所有pair，减少计算量。</p>
+<p>接下来定义标签$S_{ij}=\{1,-1,0\}$，$\overline{P}_{ij}=\frac{1}{2}(S_{ij}+1)$是物品$x_i$比$x_j$排序靠前的真实概率，即当$x_i\rhd x_j$时，$S_{ij}=1$，$\overline{P}_{ij}=$1；当$x_j\rhd x_i$时，$S_{ij}=-1$，$\overline{P}_{ij}=0$；否则$S_{ij}=0$，$\overline{P}_{ij}=\frac{1}{2}$。</p>
+<p>定义交叉熵作为损失函数衡量$P_{ij}$和$\overline{P}_{ij}$的拟合程度：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+C_{ij}
+&=-\overline{P}_{ij}\log{P_{ij}}-(1-\overline{P}_{ij})\log(1-P_{ij})\\
+&=-\frac{1}{2}(1+S_{ij})\log{P_{ij}}-(1-\frac{1}{2}(1+S_{ij}))\log(1-P_{ij})\\
+&=-\frac{1}{2}(1+S_{ij})\log{P_{ij}}-\frac{1}{2}(1-S_{ij})\log(1-P_{ij})\\
+&=-\frac{1}{2}S_{ij}\log{\frac{1-P_{ij}}{P_{ij}}}-\frac{1}{2}\log(1-P_{ij})\log{P_{ij}}\\
+&= -\frac{1}{2}S_{ij}(-\sigma\cdot(s_i-s_j))-\frac{\partial{P_{ij}}}{\partial{\sigma\cdot(s_i-s_j)}}\\
+&= -\frac{1}{2}S_{ij}(-\sigma\cdot(s_i-s_j))-\frac{1}{2}(-\sigma\cdot(s_i-s_j)-2\log(1+e^{-\sigma\cdot(s_i-s_j)}))\\
+&=\frac{1}{2}(1-S_{ij})\sigma\cdot(s_i-s_j)+\log(1+e^{-\sigma\cdot(s_i-s_j)})
+\end{aligned}</script><p>上式利用了性质，$P=\frac{1}{1+e^{-x}}\rightarrow x=\log(\frac{P}{1-P}),P(1-P)=\frac{\partial P}{\partial x}$。</p>
+<p>该损失函数有以下两个特点：</p>
+<ul>
+<li>当两个相关性不同的物品算出来的模型分数相同时，因为损失函数后半部分为$\log(1+e^{-\sigma\cdot(s_i-s_j)})$，损失函数的值大于0，仍会对这对pair做惩罚，使他们的排序位置区分开。</li>
+<li>损失函数是一个类线性函数，可以有效减少异常样本数据对模型的影响，因此具有鲁棒性。</li>
+</ul>
+<p>RankNet采用神经网络模型优化损失函数，采用梯度下降法求解：</p>
+<script type="math/tex; mode=display">
+w_k=w_k-\eta\frac{\partial C}{\partial w_k}</script><h2 id="LambdaRank"><a href="#LambdaRank" class="headerlink" title="LambdaRank"></a>LambdaRank</h2><p>在介绍LambdaRank的动机之前，我们先从一张图来考察RankNet学习过程中，列表的排序变化。</p>
+<img src="/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/RankNet%E5%AD%A6%E4%B9%A0%E8%BF%87%E7%A8%8B.png" class="" title="This is an image">
+<p>如上所示，每个线条表示物品，蓝色表示相关物品，灰色表示不相关物品，RankNet以pairwise error的方式计算损失，在某次迭代中，RankNet 将物品的顺序从左边变成了右边。于是我们可以看到：</p>
+<ul>
+<li>RankNet 的梯度下降表现在结果的整体变化中是逆序对的下降。左图中，2~14不相关物品都排在了15号相关物品之前，这些不相关物品和15号物品构成的逆序对共13个，因此损失等价于为13；而右图中，将1号相关物品降到了4号，15号相关物品上升到了10号，此时逆序对的数量为3+8=11个，因此损失等价于11.</li>
+<li>对于一些强调最靠前的TopK个物品的排序指标(NDCG、ERR等)而言，上述优化不是理想的。例如，右图下一次迭代，在Ranknet中梯度优化方向如黑色箭头所示，此时损失可以下降到8；然而对于NDCG指标而言，我们更愿意看到红色箭头所示的优化方向（此时Ranknet同样是8，但是NDCG指标相比前一种情况上升了），即关注靠前位置的相关物品排序位置的提升。</li>
+</ul>
+<p>LambdaRank正是基于这个思想演化而来，其中Lambda指的就是红色箭头，代表下一次迭代优化的方向和强度，也就是梯度。故，LambdaRank先对$\frac{\partial C}{\partial w_k}$做因式分解，如下：</p>
+<script type="math/tex; mode=display">
+\frac{\partial C}{\partial w_k}=\sum_{(i,j)\in P}\frac{\partial C_{ij}}{\partial w_k}=\sum_{(i,j)\in P}(\frac{\partial C_{ij}}{\partial s_i}\frac{\partial s_i}{\partial w_k}+\frac{\partial C_{ij}}{\partial s_j}\frac{\partial s_j}{\partial w_k})</script><p>其中：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\frac{\partial C_{ij}}{\partial s_i}
+&=\frac{\partial \frac{1}{2}(1-S_{ij})\sigma\cdot(s_i-s_j)+\log(1+e^{-\sigma\cdot(s_i-s_j)})}{\partial s_i}\\
+&=\sigma\cdot(\frac{1}{2}(1-S_{ij})-\frac{1}{1+e^{\sigma\cdot(s_i-s_j)}})\\
+&=-\frac{\partial C_{ij}}{\partial s_j}
+\end{aligned}</script><p>代入上式得：</p>
+<script type="math/tex; mode=display">
+\frac{\partial C}{\partial w_k}=\sum_{(i,j)\in P}(\sigma\cdot(\frac{1}{2}(1-S_{ij})-\frac{1}{1+e^{\sigma\cdot(s_i-s_j)}}))(\frac{\partial s_i}{\partial w_k}-\frac{\partial s_j}{\partial w_k})</script><p>令：</p>
+<script type="math/tex; mode=display">
+\lambda_{ij}=\frac{\partial C_{ij}}{\partial s_i}=\sigma\cdot(\frac{1}{2}(1-S_{ij})-\frac{1}{1+e^{\sigma\cdot(s_i-s_j)}})</script><p>考虑对于有序物品对$(i,j)$，有$S_{ij}=1$，于是有简化：</p>
+<script type="math/tex; mode=display">
+\lambda_{ij}=-\frac{\sigma}{1+e^{\sigma\cdot(s_i-s_j)}}</script><p>因此，考虑偏序对的对称性，对每个物品$x_i$，其Lambda为：</p>
+<script type="math/tex; mode=display">
+\lambda_i=\sum_{(i,j)\in P}\lambda_{ij}-\sum_{(j,i)\in P}\lambda_{ij}</script><p>每个物品移动的方向和趋势取决于其他所有与之label不同的物品（比它靠前或比它靠后都考虑）。$i$比越多的物品$j$的真实排名越优，则$\lambda_i$越大；反之，越小。</p>
+<p>同时LambdaRank在此基础上，考虑排序评价指标$Z$（比如$NDCG,\Delta|NDCG|$），把交换两个物品的位置引起的评价指标的变化$|\Delta Z_{ij}|$作为其中一个因子，如下：</p>
+<script type="math/tex; mode=display">
+\lambda_{ij}=-\frac{1}{1+e^{\sigma\cdot(s_i-s_j)}}|\Delta Z_{ij}|</script><p>可以看出，LambdaRank不是直接显示定义损失函数再求梯度的方式对排序问题进行求解，而是分析排序问题需要的梯度的物理意义，直接定义梯度，我们可以反推出LambdaRank的损失函数$L_{ij}=\log(1+e^{-\sigma\cdot(s_i-s_j)})|\Delta Z_{ij}|$。</p>
+<p>LambdaRank相比RankNet的优势在于分解因式后训练速度变快，同时考虑了评价指标，直接对问题求解，效果更明显。</p>
+<h2 id="LambdaMART"><a href="#LambdaMART" class="headerlink" title="LambdaMART"></a>LambdaMART</h2><p>LambdaRank重新定义了梯度，赋予了梯度新的物理意义，因此，所有可以使用梯度下降法求解的模型都可以使用这个梯度，MART（即GBDT）就是其中一种，MART的原理是直接在函数空间对函数进行求解，模型结果由许多棵树组成，每棵树的拟合目标是损失函数的梯度，在LambdaMART中就是Lambda。就变成这样：</p>
+<ul>
+<li>MART是一个框架，缺少一个<strong>梯度</strong>；</li>
+<li><p>LambdaRank定义了一个<strong>梯度</strong>。</p>
+<p>下面介绍LambdaMART的每一步工作：</p>
+</li>
+</ul>
+<ol>
+<li>每棵数的训练会先遍历所有的训练数据（label不同的物品对pair），计算每个pari互换位置导致的指标变化$|\Delta Z_{ij}|$以及Lambda，即$\lambda_{ij}=-\frac{1}{1+e^{\sigma\cdot(s_i-s_j)}}|\Delta Z_{ij}|$，然后计算每个物品档的Lambda：$\lambda_i=\sum_{(i,j)\in P}\lambda_{ij}-\sum_{(j,i)\in P}\lambda_{ij}$，再计算每个$\lambda_i$的导数$w_i$，用于后面的牛顿迭代法(Newton step)求解叶子节点的数值。</li>
+<li>创建回归树去拟合第一步生成的$\lambda_i$，划分树节点的标准是均方差（MSE），生成一棵叶子节点数为k的回归树$R_{km}$，$m$表示第$m$棵树。</li>
+<li>对第二步生成的回归树，计算每个叶子节点的数值，采用牛顿迭代法求解，即对落入该叶子节点的物品集，用公式$\frac{\sum_{x_i\in R_{km}}\lambda_i}{\sum_{x_i\in R_{km}}w_i}$计算该叶子节点的输出值。</li>
+<li>更新模型，将当前学习到的回归树加入到已有的模型中做回归。</li>
+</ol>
+<p>LambdaMART有很多优势：</p>
+<ol>
+<li>适用于排序场景：不是传统的通过分类或者回归的方法求解排序问题，而是直接求解。</li>
+<li>损失函数可导：通过损失函数的转换，将类似于NDCG这种无法求导的排序评价指标转换成可以求导的函数，并且赋予了梯度的实际物理意义。</li>
+<li>增量学习：由于每次训练可以在已有的模型上继续训练，因此适合于增量学习。</li>
+<li>特征选择：因为是基于MART模型，因此也具有MART的优势，可以学到每个特征的重要性，可以做特征选择。</li>
+<li>组合特征：因为采用树模型，因此可以学到不同特征组合情况。</li>
+<li>适用于正负样本比例失衡的数据：因为模型的训练对象具有不同label的物品对pair，而不是预测每个物品的label，因此对正负样本比例失衡不敏感。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag"># 推荐系统</a>
+              <a href="/tags/%E6%8E%92%E5%BA%8F%E5%AD%A6%E4%B9%A0/" rel="tag"># 排序学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2019/10/11/Python%E4%B8%AD%E8%B0%83%E7%94%A8C%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81/" rel="next" title="Python中调用C语言代码">
+      Python中调用C语言代码 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#《DeepFM-A-Factorization-Machine-based-Neural-Network-for-CTR-Prediction》"><span class="nav-number">1.</span> <span class="nav-text">《DeepFM: A Factorization-Machine based Neural Network for CTR Prediction》</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepFM方法详解"><span class="nav-number">1.2.</span> <span class="nav-text">DeepFM方法详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DeepFM"><span class="nav-number">1.2.1.</span> <span class="nav-text">DeepFM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FM部分"><span class="nav-number">1.2.2.</span> <span class="nav-text">FM部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deep部分"><span class="nav-number">1.2.3.</span> <span class="nav-text">Deep部分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与其他神经网络的关系"><span class="nav-number">1.3.</span> <span class="nav-text">与其他神经网络的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验部分"><span class="nav-number">1.4.</span> <span class="nav-text">实验部分</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#《BPR-Bayesian-Personalized-Ranking-from-Implicit-Feedback》"><span class="nav-number">2.</span> <span class="nav-text">《BPR: Bayesian Personalized Ranking from Implicit Feedback》</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍-1"><span class="nav-number">2.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BPR建模思路"><span class="nav-number">2.2.</span> <span class="nav-text">BPR建模思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BPR的算法优化思路"><span class="nav-number">2.3.</span> <span class="nav-text">BPR的算法优化思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BPR的算法流程"><span class="nav-number">2.4.</span> <span class="nav-text">BPR的算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BPR总结"><span class="nav-number">2.5.</span> <span class="nav-text">BPR总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#《From-RankNet-to-LambdaRank-to-LambdaMART-An-Overview》"><span class="nav-number">3.</span> <span class="nav-text">《From RankNet to LambdaRank to LambdaMART: An Overview》</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍-2"><span class="nav-number">3.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RankNet"><span class="nav-number">3.2.</span> <span class="nav-text">RankNet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LambdaRank"><span class="nav-number">3.3.</span> <span class="nav-text">LambdaRank</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LambdaMART"><span class="nav-number">3.4.</span> <span class="nav-text">LambdaMART</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">刘坤池</p>
+  <div class="site-description" itemprop="description">竹贵有节，学贵有恒。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘坤池</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">18k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">17 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.5.0
+  </div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共8.6k字</span>
+</div>
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+    MathJax.Ajax.config.path['mhchem'] = '//cdn.jsdelivr.net/npm/mathjax-mhchem@3';
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        extensions: ['[mhchem]/mhchem.js'],
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+</body>
+</html>
