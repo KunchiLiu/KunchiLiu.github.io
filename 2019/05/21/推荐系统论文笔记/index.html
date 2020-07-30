@@ -335,7 +335,7 @@ y(\mathbf{x})=w_0+\sum_{i=1}^n(w_i\mathbf{x})+\sum_{i=1}^{n-1}\sum_{j=i+1}^{n}<\
 <li>虽然输入的每个field向量长度不一样，但是它们embedding出来的长度是固定的，上图示例的嵌入长度是k=5；</li>
 <li>FM中的隐向量$V$作为该嵌入层的权重矩阵，以实现输入的field向量压缩到embedding向量的转换。隐向量$v_{ik}$是嵌入层中第i个field连接到嵌入层第k个节点的权重。</li>
 </ul>
-<p>这里的第二点可以这样理解：假设我们的k=5，首先，对于输入的一条记录，同一个field 只有一个位置是1，那么在由输入得到dense向量的过程中，输入层只有一个神经元起作用，得到的dense向量其实就是输入层embedding层该神经元相连的五条线的权重，即$v_{i1}，v_{i2}，v_{i3}，v_{i4}，v_{i5}$ 。这五个值组合起来就是我们在FM中所提到的$\mathbf{v}_i$,在FM部分和DNN部分，这一块是共享权重的，对同一个特征来说，得到的$\mathbf{v}_i$是相同的。</p>
+<p>这里的第二点可以这样理解：假设我们的k=5，首先，对于输入的一条记录，同一个field 只有一个位置是1，那么在由输入得到dense向量的过程中，输入层只有一个神经元起作用，得到的dense向量其实就是输入层embedding层该神经元相连的五条线的权重，即$v<em>{i1}，v</em>{i2}，v<em>{i3}，v</em>{i4}，v_{i5}$ 。这五个值组合起来就是我们在FM中所提到的$\mathbf{v}_i$,在FM部分和DNN部分，这一块是共享权重的，对同一个特征来说，得到的$\mathbf{v}_i$是相同的。</p>
 <h2 id="与其他神经网络的关系"><a href="#与其他神经网络的关系" class="headerlink" title="与其他神经网络的关系"></a>与其他神经网络的关系</h2><p>下面是FNN、PNN和Wide&amp;Deep模型框架：</p>
 <img src="/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/FNN%E3%80%81PNN%E5%92%8CWide&Deep%E6%A8%A1%E5%9E%8B%E6%A1%86%E6%9E%B6.png" class="" title="This is an image">
 <p><strong>FNN</strong>是一个FM初始化的前馈神经网络，与DeepFM不同，它是用FM预训练出来的$V$来对Deep部分进行初始化，仅提取到了高阶特征，它有两个限制。</p>
@@ -351,7 +351,7 @@ y(\mathbf{x})=w_0+\sum_{i=1}^n(w_i\mathbf{x})+\sum_{i=1}^{n-1}\sum_{j=i+1}^{n}<\
 <h1 id="《BPR-Bayesian-Personalized-Ranking-from-Implicit-Feedback》"><a href="#《BPR-Bayesian-Personalized-Ranking-from-Implicit-Feedback》" class="headerlink" title="《BPR: Bayesian Personalized Ranking from Implicit Feedback》"></a>《BPR: Bayesian Personalized Ranking from Implicit Feedback》</h1><h2 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h2><p>目前排序算法大致被分为三类，分别是点对排序(Pointwise)、成对排序(Pairwise)和列表排序(Listwise)。BPR(Bayesian Personalized Ranking，贝叶斯个性化排序)就是属于成对方法（Pairwise）中的一种，成对排序对物品顺序关系是否合理进行判断，判断任意两个物品组成的物品对$<item1,item2>$，是否满足顺序关系，从而最终完成物品的排序任务来得到推荐列表。</p>
 <h2 id="BPR建模思路"><a href="#BPR建模思路" class="headerlink" title="BPR建模思路"></a>BPR建模思路</h2><p>它基于这样的假设，比起其他没有被交互过的物品而言，用户更喜爱对交互过物品(而对于用户交互过的物品对之间不假设偏序关系，同样，对于用户没有交互过的物品对之间也不假设偏序关系)。从而将 “用户-物品 ”交互矩阵可以转换为物品对偏序关系矩阵。如下图所示：</p>
 <img src="/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/BPR%E8%BD%AC%E6%8D%A2%E7%9F%A9%E9%98%B5.png" class="" title="This is an image">
-<p>上述是交互矩阵转换为物品偏序对矩阵的过程。所有用户的物品偏序对矩阵可以表示成3元组$&lt; u,i,j >$，该三元组的含义为：相对于物品$j$，用更喜欢物品$i$，使用符号$i &gt;_u j$表示。令$D_s = \{(u,i,j)|i \in I_u^+  \cap j \in I \backslash I_u^+ \}$。$I_{u}^{+}$表示用户$u$交互过的物品集合，同理，$U_{i}^{+}$表示与物品$i$交互过的用户集合，</p>
+<p>上述是交互矩阵转换为物品偏序对矩阵的过程。所有用户的物品偏序对矩阵可以表示成3元组$&lt; u,i,j >$，该三元组的含义为：相对于物品$j$，用更喜欢物品$i$，使用符号$i &gt;<em>u j$表示。令$D_s = {(u,i,j)|i \in I_u^+  \cap j \in I \backslash I_u^+ }$。$I</em>{u}^{+}$表示用户$u$交互过的物品集合，同理，$U_{i}^{+}$表示与物品$i$交互过的用户集合，</p>
 <p>在此基础上 ,作者提出了基于贝叶斯的个性化排序算法，其目标是最大化物品排序的后验概率。它有如下两个假设：一是每个用户对物品的偏好与其他用户无关，即，用户的偏好行为相互独立；二是每个用户在物品$i$和物品$j$之间的偏好和其他商品无关，即，每个用户对不同物品的偏序相互独立。</p>
 <p>在BPR中，排序关系符号$&gt;_u$满足完整性、反对称性和传递性，即对于用户集$U$和物品集$I$：</p>
 <ol>
@@ -381,9 +381,9 @@ P(\Theta|>_u)\propto P(>_u|\Theta)P(\Theta)</script><p>可以看出优化目标�
 <script type="math/tex; mode=display">
 \prod_{u \in U}P(>_u|\Theta) = \prod_{(u,i,j)\in D_s}P(i>_uj|\Theta)</script><p>而对于$P(i&gt;_uj|\Theta)$这个概率，我们可以使用下面这个式子来代替：</p>
 <script type="math/tex; mode=display">
-P(i>_uj|\Theta)=\sigma(\overline{x}_{uij}(\Theta))</script><p>其中$\sigma(x)$是sigmoid函数，对于$\overline{x}_{uij}(\Theta)$，我们要满足当$i&gt;_uj$时，$\overline{x}_{uij}(\Theta)&gt;0$，反之，当$j &gt;_u i$时，$\overline{x}_{uij}(\Theta)&lt;0$；那么最简单表示这个性质的方法就是：</p>
+P(i>_uj|\Theta)=\sigma(\overline{x}_{uij}(\Theta))</script><p>其中$\sigma(x)$是sigmoid函数，对于$\overline{x}<em>{uij}(\Theta)$，我们要满足当$i&gt;_uj$时，$\overline{x}</em>{uij}(\Theta)&gt;0$，反之，当$j &gt;<em>u i$时，$\overline{x}</em>{uij}(\Theta)&lt;0$；那么最简单表示这个性质的方法就是：</p>
 <script type="math/tex; mode=display">
-\overline{x}_{uij}(\Theta) = \overline{x}_{ui}(\Theta)-\overline{x}_{uj}(\Theta)</script><p>而$\overline{x}_{ui},\overline{x}_{uj}$就是矩阵$\overline{X}$对应位置的值，为了方便，暂不写$\Theta$；最终，第一部分的优化目标转化为：</p>
+\overline{x}_{uij}(\Theta) = \overline{x}_{ui}(\Theta)-\overline{x}_{uj}(\Theta)</script><p>而$\overline{x}<em>{ui},\overline{x}</em>{uj}$就是矩阵$\overline{X}$对应位置的值，为了方便，暂不写$\Theta$；最终，第一部分的优化目标转化为：</p>
 <script type="math/tex; mode=display">
 \prod_{u \in U}P(>_u|\Theta) = \prod_{(u,i,j)\in D_s}\sigma(\overline{x}_{ui}-\overline{x}_{uj})</script><p>对于第二部$P(\Theta)$，即，先验部分，可以根据参数的假设分布选择，如高斯分布：均值为0，协方差矩阵是$\lambda_\Theta I$，如下：</p>
 <script type="math/tex; mode=display">
@@ -435,8 +435,8 @@ s=f(x;w)</script><p>根据这个算分函数，我们可以计算物品$x_i$和$
 s_i = f(x_i;w)   \ \ \ \ s_j=f(x_j;w)</script><p>然后根据得分计算二者的偏序概率：</p>
 <script type="math/tex; mode=display">
 P_{ij}=P(x_i\rhd x_j)=\frac{1}{1+e^{-\sigma\cdot(s_i-s_j)}}</script><p>其中$\sigma$是Sigmoid函数的参数，决定了Sigmoid曲线的形状。RankNet证明了如果知道一个待排序物品的排列中相邻两个物品之间的排序概率，则通过推导可以算出每两个物品之间的排序概率。因此对于一个待排序物品序列，只需计算相邻物品之间的排序概率，不需要计算所有pair，减少计算量。</p>
-<p>接下来定义标签$S_{ij}=\{1,-1,0\}$，$\overline{P}_{ij}=\frac{1}{2}(S_{ij}+1)$是物品$x_i$比$x_j$排序靠前的真实概率，即当$x_i\rhd x_j$时，$S_{ij}=1$，$\overline{P}_{ij}=$1；当$x_j\rhd x_i$时，$S_{ij}=-1$，$\overline{P}_{ij}=0$；否则$S_{ij}=0$，$\overline{P}_{ij}=\frac{1}{2}$。</p>
-<p>定义交叉熵作为损失函数衡量$P_{ij}$和$\overline{P}_{ij}$的拟合程度：</p>
+<p>接下来定义标签$S<em>{ij}={1,-1,0}$，$\overline{P}</em>{ij}=\frac{1}{2}(S<em>{ij}+1)$是物品$x_i$比$x_j$排序靠前的真实概率，即当$x_i\rhd x_j$时，$S</em>{ij}=1$，$\overline{P}<em>{ij}=$1；当$x_j\rhd x_i$时，$S</em>{ij}=-1$，$\overline{P}<em>{ij}=0$；否则$S</em>{ij}=0$，$\overline{P}_{ij}=\frac{1}{2}$。</p>
+<p>定义交叉熵作为损失函数衡量$P<em>{ij}$和$\overline{P}</em>{ij}$的拟合程度：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 C_{ij}
@@ -482,7 +482,7 @@ w_k=w_k-\eta\frac{\partial C}{\partial w_k}</script><h2 id="LambdaRank"><a href=
 \lambda_i=\sum_{(i,j)\in P}\lambda_{ij}-\sum_{(j,i)\in P}\lambda_{ij}</script><p>每个物品移动的方向和趋势取决于其他所有与之label不同的物品（比它靠前或比它靠后都考虑）。$i$比越多的物品$j$的真实排名越优，则$\lambda_i$越大；反之，越小。</p>
 <p>同时LambdaRank在此基础上，考虑排序评价指标$Z$（比如$NDCG,\Delta|NDCG|$），把交换两个物品的位置引起的评价指标的变化$|\Delta Z_{ij}|$作为其中一个因子，如下：</p>
 <script type="math/tex; mode=display">
-\lambda_{ij}=-\frac{1}{1+e^{\sigma\cdot(s_i-s_j)}}|\Delta Z_{ij}|</script><p>可以看出，LambdaRank不是直接显示定义损失函数再求梯度的方式对排序问题进行求解，而是分析排序问题需要的梯度的物理意义，直接定义梯度，我们可以反推出LambdaRank的损失函数$L_{ij}=\log(1+e^{-\sigma\cdot(s_i-s_j)})|\Delta Z_{ij}|$。</p>
+\lambda_{ij}=-\frac{1}{1+e^{\sigma\cdot(s_i-s_j)}}|\Delta Z_{ij}|</script><p>可以看出，LambdaRank不是直接显示定义损失函数再求梯度的方式对排序问题进行求解，而是分析排序问题需要的梯度的物理意义，直接定义梯度，我们可以反推出LambdaRank的损失函数$L<em>{ij}=\log(1+e^{-\sigma\cdot(s_i-s_j)})|\Delta Z</em>{ij}|$。</p>
 <p>LambdaRank相比RankNet的优势在于分解因式后训练速度变快，同时考虑了评价指标，直接对问题求解，效果更明显。</p>
 <h2 id="LambdaMART"><a href="#LambdaMART" class="headerlink" title="LambdaMART"></a>LambdaMART</h2><p>LambdaRank重新定义了梯度，赋予了梯度新的物理意义，因此，所有可以使用梯度下降法求解的模型都可以使用这个梯度，MART（即GBDT）就是其中一种，MART的原理是直接在函数空间对函数进行求解，模型结果由许多棵树组成，每棵树的拟合目标是损失函数的梯度，在LambdaMART中就是Lambda。就变成这样：</p>
 <ul>
@@ -492,9 +492,9 @@ w_k=w_k-\eta\frac{\partial C}{\partial w_k}</script><h2 id="LambdaRank"><a href=
 </li>
 </ul>
 <ol>
-<li>每棵数的训练会先遍历所有的训练数据（label不同的物品对pair），计算每个pari互换位置导致的指标变化$|\Delta Z_{ij}|$以及Lambda，即$\lambda_{ij}=-\frac{1}{1+e^{\sigma\cdot(s_i-s_j)}}|\Delta Z_{ij}|$，然后计算每个物品档的Lambda：$\lambda_i=\sum_{(i,j)\in P}\lambda_{ij}-\sum_{(j,i)\in P}\lambda_{ij}$，再计算每个$\lambda_i$的导数$w_i$，用于后面的牛顿迭代法(Newton step)求解叶子节点的数值。</li>
-<li>创建回归树去拟合第一步生成的$\lambda_i$，划分树节点的标准是均方差（MSE），生成一棵叶子节点数为k的回归树$R_{km}$，$m$表示第$m$棵树。</li>
-<li>对第二步生成的回归树，计算每个叶子节点的数值，采用牛顿迭代法求解，即对落入该叶子节点的物品集，用公式$\frac{\sum_{x_i\in R_{km}}\lambda_i}{\sum_{x_i\in R_{km}}w_i}$计算该叶子节点的输出值。</li>
+<li>每棵数的训练会先遍历所有的训练数据（label不同的物品对pair），计算每个pari互换位置导致的指标变化$|\Delta Z<em>{ij}|$以及Lambda，即$\lambda</em>{ij}=-\frac{1}{1+e^{\sigma\cdot(s<em>i-s_j)}}|\Delta Z</em>{ij}|$，然后计算每个物品档的Lambda：$\lambda<em>i=\sum</em>{(i,j)\in P}\lambda<em>{ij}-\sum</em>{(j,i)\in P}\lambda_{ij}$，再计算每个$\lambda_i$的导数$w_i$，用于后面的牛顿迭代法(Newton step)求解叶子节点的数值。</li>
+<li>创建回归树去拟合第一步生成的$\lambda<em>i$，划分树节点的标准是均方差（MSE），生成一棵叶子节点数为k的回归树$R</em>{km}$，$m$表示第$m$棵树。</li>
+<li>对第二步生成的回归树，计算每个叶子节点的数值，采用牛顿迭代法求解，即对落入该叶子节点的物品集，用公式$\frac{\sum<em>{x_i\in R</em>{km}}\lambda<em>i}{\sum</em>{x<em>i\in R</em>{km}}w_i}$计算该叶子节点的输出值。</li>
 <li>更新模型，将当前学习到的回归树加入到已有的模型中做回归。</li>
 </ol>
 <p>LambdaMART有很多优势：</p>
@@ -633,7 +633,7 @@ w_k=w_k-\eta\frac{\partial C}{\partial w_k}</script><h2 id="LambdaRank"><a href=
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">17 分钟</span>
+    <span title="站点阅读时长">16 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
@@ -643,7 +643,7 @@ w_k=w_k-\eta\frac{\partial C}{\partial w_k}</script><h2 id="LambdaRank"><a href=
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共8.6k字</span>
+  <span class="post-count">博客全站共8.5k字</span>
 </div>
         
 
