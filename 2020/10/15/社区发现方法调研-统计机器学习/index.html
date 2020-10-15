@@ -60,7 +60,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-%E7%BB%9F%E8%AE%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/louvain.png">
 <meta property="og:image" content="http://yoursite.com/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-%E7%BB%9F%E8%AE%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/synchronous.png">
 <meta property="article:published_time" content="2020-10-15T07:04:02.000Z">
-<meta property="article:modified_time" content="2020-10-15T07:30:45.156Z">
+<meta property="article:modified_time" content="2020-10-15T07:37:35.818Z">
 <meta property="article:author" content="刘坤池">
 <meta property="article:tag" content="社区发现">
 <meta property="article:tag" content="聚类">
@@ -259,7 +259,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-10-15 15:04:02 / 修改时间：15:30:45" itemprop="dateCreated datePublished" datetime="2020-10-15T15:04:02+08:00">2020-10-15</time>
+              <time title="创建时间：2020-10-15 15:04:02 / 修改时间：15:37:35" itemprop="dateCreated datePublished" datetime="2020-10-15T15:04:02+08:00">2020-10-15</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -314,13 +314,13 @@
 \begin{aligned}
 Q &=\frac{1}{2m}\sum_{i,j}\left [A_{ij}-\frac{k_i k_j}{2m}\right]\delta\left(c_i,c_j \right)\\
 \delta\left(c_i,c_j \right) &= \begin{cases} 1& c_i=c_j\\0 &c_i \neq c_j\end{cases}
-\end{aligned}</script><p>其中，<script type="math/tex">A_{ij}</script>表示节点<script type="math/tex">i</script>与节点$j$之间边的权重，网络不是带权图时，表示连边数；<script type="math/tex">k_i=\sum_{j} A_{ij}</script>表示所有与节点$i$相连的边的权重之和（度数）；$c<em>i$表示节点$i$所属的社区；$m=\frac{1}{2}\sum</em>{ij}A_{ij}$表示所有边的权重之和（边数），这里重复计算了边数，所以会除以2。$Q$的取值范围是$\left[-\frac{1}{2},1\right)$。</p>
+\end{aligned}</script><p>其中，<script type="math/tex">A_{ij}</script>表示节点<script type="math/tex">i</script>与节点$j$之间边的权重，网络不是带权图时，表示连边数；<script type="math/tex">k_i=\sum_{j} A_{ij}</script>表示所有与节点$i$相连的边的权重之和（度数）；<script type="math/tex">c_i</script>表示节点$i$所属的社区；<script type="math/tex">m=\frac{1}{2}\sum_{ij}A_{ij}</script>表示所有边的权重之和（边数），这里重复计算了边数，所以会除以2。$Q$的取值范围是<script type="math/tex">\left[-\frac{1}{2},1\right)</script>。</p>
 <ul>
 <li>当图中只有两个节点，把两个节点各分为1个社区，那么$Q$取值为$-\frac{1}{2}$；</li>
 <li>$Q$的上限为1，越接近这个值，就说明社区结构越明显；</li>
 <li>在实际网络中，$Q$值常位于0.3和0.7之间。</li>
 </ul>
-<p>公式中$A<em>{ij}-\frac{k_i k_j}{2m}=A</em>{ij}-k<em>i\frac{k_j}{2m}$，节点$j$连接到任意一个节点的概率是$\frac{k_j}{2m}$，现在节点$i$的度数为$k_i$，因此随机情况下节点$i$与$j$连边的为权重为$A</em>{ij}$，接下来将该公式进行如下简化：</p>
+<p>公式中<script type="math/tex">A_{ij}-\frac{k_i k_j}{2m}=A_{ij}-k_i\frac{k_j}{2m}</script>，节点$j$连接到任意一个节点的概率是<script type="math/tex">\frac{k_j}{2m}</script>，现在节点$i$的度数为<script type="math/tex">k_i</script>，因此随机情况下节点$i$与$j$连边的为权重为$A_{ij}$，接下来将该公式进行如下简化：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 Q &= \frac{1}{2m}\sum_{i,j}\left [A_{ij}-\frac{k_i k_j}{2m}\right]\delta\left(c_i,c_j \right)\\
@@ -466,12 +466,12 @@ H(P)=-\sum_{i=1}^n p_i\log_2 p_i
 <script type="math/tex; mode=display">
 \begin{aligned}
 H(Q)=-\sum_{i}\frac{q_{i\curvearrowright}}{q_\curvearrowright}\log\frac{q_{i\curvearrowright}}{q_\curvearrowright}
-\end{aligned}</script><p>其中，${q<em>\curvearrowright}=\sum</em>{i}q_{i\curvearrowright}$，这是因为类的编码时独立一套的，将类的概率在类间归一化后，代入熵的公式就得到类的理论上的最短平均编码长度了。同样的，对于每个类$i$的类内对象的最短平均编码长度是：</p>
+\end{aligned}</script><p>其中，<script type="math/tex">{q_\curvearrowright}=\sum_{i}q_{i\curvearrowright}</script>，这是因为类的编码时独立一套的，将类的概率在类间归一化后，代入熵的公式就得到类的理论上的最短平均编码长度了。同样的，对于每个类$i$的类内对象的最短平均编码长度是：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 H(P^i)=-\frac{q_{i\curvearrowright}}{p_{i\circlearrowright}}\log\frac{q_{i\curvearrowright}}{p_{i\circlearrowright}}
 -\sum_{\alpha \in i}\frac{p_{\alpha}}{p_{i\circlearrowright}}\log\frac{p_{\alpha}}{p_{i\circlearrowright}}
-\end{aligned}</script><p>其中，$p<em>{i\circlearrowright}=q</em>{i\curvearrowright}+\sum<em>{\alpha \in i}p</em>{\alpha}$，每个类内对象都用独自的一套编码，这里连同终止标记概率在类内归一化后，代入熵的公式。最后，二者加权平均可以得到总的最短平均编码长度：</p>
+\end{aligned}</script><p>其中，<script type="math/tex">p_{i\circlearrowright}=q_{i\curvearrowright}+\sum_{\alpha \in i}p_{\alpha}</script>，每个类内对象都用独自的一套编码，这里连同终止标记概率在类内归一化后，代入熵的公式。最后，二者加权平均可以得到总的最短平均编码长度：</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
 L(M)={q_\curvearrowright}H(Q)+\sum_{i}p_{i\circlearrowright}H(P^i)
@@ -485,15 +485,15 @@ p_1\\p_2\\ \vdots \\p_n
 \end{pmatrix} 
 = \begin{pmatrix}p_{1\to 1} & p_{2\to 1} & \cdots & p_{n\to 1}\\p_{1\to 2} & p_{2\to 2} & \cdots & p_{n\to 2} \\ \vdots& \vdots& \ddots & \vdots \\p_{1\to n} & p_{2\to n} & \cdots & p_{n\to n}\end{pmatrix} \begin{pmatrix}p_1\\p_2\\ \vdots \\p_n
 \end{pmatrix}
-\end{equation}</script><p>或者写成$p<em>{\beta}=\sum</em>{\alpha}p<em>\alpha p</em>{\alpha \rightarrow \beta}$，上式得到的是节点概率最终的平稳分布$(p<em>1,p_2,…,p_n)$，但是，单纯的随机游走可能会依赖迭代的初始值，上式的解可能不唯一，比如，有一些孤立的区域，进去便永远出不来了，那么区域外的节点的概率便全为0了。为了解决这个问题，作者引入了”穿越概率“$\tau$：以$1-\tau$的概率按照$p</em>{\beta \rightarrow \alpha}$的概率来随机游走，以$\tau$的概率随机选择网络中任意一个节点跳转，那么，节点$p_{\beta}$的概率为：</p>
+\end{equation}</script><p>或者写成<script type="math/tex">p_{\beta}=\sum_{\alpha}p_\alpha p_{\alpha \rightarrow \beta}</script>，上式得到的是节点概率最终的平稳分布<script type="math/tex">(p_1,p_2,...,p_n)</script>，但是，单纯的随机游走可能会依赖迭代的初始值，上式的解可能不唯一，比如，有一些孤立的区域，进去便永远出不来了，那么区域外的节点的概率便全为0了。为了解决这个问题，作者引入了”穿越概率“$\tau$：以$1-\tau$的概率按照<script type="math/tex">p_{\beta \rightarrow \alpha}</script>的概率来随机游走，以$\tau$的概率随机选择网络中任意一个节点跳转，那么，节点$p_{\beta}$的概率为：</p>
 <script type="math/tex; mode=display">
 p_{\beta}=(1-\tau)\sum_{\alpha}p_\alpha p_{\alpha \rightarrow \beta}
-+\tau\sum_{\alpha}p_\alpha \frac{1}{n}</script><p>相当于把转移概率$p<em>{\alpha \rightarrow \beta}$换成了$(1-\tau)p</em>{\alpha \rightarrow \beta}+{\tau}/{n}$，$\tau$作为一个超参数，作者取了$\tau=0.15$。</p>
++\tau\sum_{\alpha}p_\alpha \frac{1}{n}</script><p>相当于把转移概率<script type="math/tex">p_{\alpha \rightarrow \beta}</script>换成了<script type="math/tex">(1-\tau)p_{\alpha \rightarrow \beta}+{\tau}/{n}</script>，$\tau$作为一个超参数，作者取了$\tau=0.15$。</p>
 <p>有了$p<em>\alpha$，还需要求$q</em>{i\curvearrowright}$，即类别的概率，也是终止标记的概率，出现终止标记意味着后面的类是已经不是第$i$类了，所以终止标记的概率实际上就是“从一个类别跳转到另一个类别的概率”，换言之就是随机游走过程中“离开$i$类”这件事情发生的概率，它等于：</p>
 <script type="math/tex; mode=display">
 \begin{equation}
 q_{i\curvearrowright} = \sum_{\alpha\in i}\sum_{\beta\not\in i} p_{\alpha} p_{\alpha\to\beta}
-\end{equation}</script><p>若带有穿越概率的话，要将$p<em>{\alpha \rightarrow \beta}$换成$(1-\tau)p</em>{\alpha \rightarrow \beta}+{\tau}/{n}$，即为：</p>
+\end{equation}</script><p>若带有穿越概率的话，要将$p<em>{\alpha \rightarrow \beta}$换成$$(1-\tau)p</em>{\alpha \rightarrow \beta}+{\tau}/{n}$$，即为：</p>
 <script type="math/tex; mode=display">
 \begin{equation}
 \begin{aligned}
