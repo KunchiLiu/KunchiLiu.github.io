@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>社区发现方法调研-02</title>
+    <title>社区发现方法调研-深度学习</title>
     <url>/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<p>这次调研主要是从参考了发表在IJCAI 2020上一篇综述《Deep Learning for Community Detection: Progress, Challenges and Opportunities》，作者以三种广泛的深度学习方法回顾了社区检测领域中模型和算法开发的技术趋势以及当前的发展状况，并确定了需要通过深度学习来克服社区发现的七个挑战。</p>
 <a id="more"></a>
