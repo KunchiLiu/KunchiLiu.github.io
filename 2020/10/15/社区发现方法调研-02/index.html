@@ -58,7 +58,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-02/An%20example%20of%20community%20detection%20in%20a%20social%20network.png">
 <meta property="og:image" content="http://yoursite.com/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-02/challenge%20and%20approaches.png">
 <meta property="article:published_time" content="2020-10-15T05:58:53.000Z">
-<meta property="article:modified_time" content="2020-10-15T06:24:54.040Z">
+<meta property="article:modified_time" content="2020-10-15T06:50:48.970Z">
 <meta property="article:author" content="刘坤池">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="社区发现">
@@ -259,7 +259,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-10-15 13:58:53 / 修改时间：14:24:54" itemprop="dateCreated datePublished" datetime="2020-10-15T13:58:53+08:00">2020-10-15</time>
+              <time title="创建时间：2020-10-15 13:58:53 / 修改时间：14:50:48" itemprop="dateCreated datePublished" datetime="2020-10-15T13:58:53+08:00">2020-10-15</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -309,7 +309,7 @@
 <p><img src="/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-02/title.png" alt="image-20201005104401756"></p>
 </li>
 </ul>
-<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h2><p>网络/图的两个基本元素是节点和边。从连通性和密度的角度来看，社区被称为局部密集的连通子图或节点簇（clusters of nodes）。除了子图的内部衔接之外，还应考虑它们之间的分隔。为此，图论提出了两个特定的规则来划分社区：</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>网络/图的两个基本元素是节点和边。从连通性和密度的角度来看，社区被称为局部密集的连通子图或节点簇（clusters of nodes）。除了子图的内部衔接之外，还应考虑它们之间的分隔。为此，图论提出了两个特定的规则来划分社区：</p>
 <ul>
 <li>社区中的节点紧密连接；</li>
 <li>不同社区中的节点稀疏连接。</li>
@@ -322,10 +322,10 @@
 </ul>
 <p>至少就目前而言，深度学习是一种解决方案。通过深度学习，计算模型可以在多个抽象级别上学习数据的表示形式，这非常适合于网络数据。不仅其学习非线性特征的能力得到了极大的提高，而且可以降低数据的维度，从而扩大了网络分析任务的范围（如社区检测，节点分类和链接预测等）。</p>
 <p>这篇文章从模型的角度对社区检测方法进行分类，可分为：基于深度神经网络（Deep Neural Networks）的方法，基于深度图嵌入（Deep Graph Embedding）的方法和基于图神经网络（Graph Neural Networks）的方法，最后介绍了当前尚未解决的挑战和未来研究方向。</p>
-<h2 id="2-相关定义"><a href="#2-相关定义" class="headerlink" title="2. 相关定义"></a>2. 相关定义</h2><p><strong>定义1（网络）</strong>根据图论，加权网络表示为<script type="math/tex">G=(V,E,W)</script>，未加权网络表示为$G=(V,E)$，其中$V$和$E$表示节点和边的集合，$W$分别表示$E$相应的权重，以连接的强度或容量为单位。在未加权的网络中，$W$被视为1。子图$g \subseteq G$是保留原始网络结构的图划分。子图的划分遵循预定义（pre-define）的规则，不同的规则可能会导致不同形式的子图。社区是代表真实社会现象的一种子图。换句话说，社区是一组具有共同特征的人或对象。</p>
-<p><strong>定义2（社区）</strong>社区是网络中节点密集连接的子图，稀疏连接的节点沟通了不同的社区。在这里，使用$C=\left{C_1,C_2,\cdots,C_k \right}$表示将网络$G$划分为$k$个社区的集合，其中$C_i$是社区划分的第$i$个社区。节点$v$属于社区$C_i$满足如下条件：社区内部每个节点的内部度大于其外部度。</p>
+<h2 id="相关定义"><a href="#相关定义" class="headerlink" title="相关定义"></a>相关定义</h2><p><strong>定义1（网络）</strong>根据图论，加权网络表示为<script type="math/tex">G=(V,E,W)</script>，未加权网络表示为$G=(V,E)$，其中$V$和$E$表示节点和边的集合，$W$分别表示$E$相应的权重，以连接的强度或容量为单位。在未加权的网络中，$W$被视为1。子图$g \subseteq G$是保留原始网络结构的图划分。子图的划分遵循预定义（pre-define）的规则，不同的规则可能会导致不同形式的子图。社区是代表真实社会现象的一种子图。换句话说，社区是一组具有共同特征的人或对象。</p>
+<p><strong>定义2（社区）</strong>社区是网络中节点密集连接的子图，稀疏连接的节点沟通了不同的社区。在这里，使用$C={C_1,C_2,\cdots,C_k }$表示将网络$G$划分为$k$个社区的集合，其中$C_i$是社区划分的第$i$个社区。节点$v$属于社区$C_i$满足如下条件：社区内部每个节点的内部度大于其外部度。</p>
 <p>因此，社区检测的目标是发现网络$G$中的社区$C$。</p>
-<h2 id="3-为什么要用深度学习做社区检测？"><a href="#3-为什么要用深度学习做社区检测？" class="headerlink" title="3. 为什么要用深度学习做社区检测？"></a>3. 为什么要用深度学习做社区检测？</h2><p>与其他机器学习方法相比，深度学习在社区检测方面的明显优势是它能够对高维数据的特征表示进行编码。深度学习模型还可以学习节点、邻域和子图的模式。另外，它们对于与大型图数据的稀疏性更具弹性（resilient）。在许多现实世界中，大多数节点都是未标记的，并且数据中的社区几乎没有先验知识，因此深度学习是无监督学习任务的最佳选择。</p>
+<h2 id="为什么要用深度学习做社区检测？"><a href="#为什么要用深度学习做社区检测？" class="headerlink" title="为什么要用深度学习做社区检测？"></a>为什么要用深度学习做社区检测？</h2><p>与其他机器学习方法相比，深度学习在社区检测方面的明显优势是它能够对高维数据的特征表示进行编码。深度学习模型还可以学习节点、邻域和子图的模式。另外，它们对于与大型图数据的稀疏性更具弹性（resilient）。在许多现实世界中，大多数节点都是未标记的，并且数据中的社区几乎没有先验知识，因此深度学习是无监督学习任务的最佳选择。</p>
 <p>除了简单地利用网络拓扑来检测社区之外，一些策略还探索语义描述作为节点特征。传统的社区检测方法主要基于邻接矩阵和节点属性矩阵[ Yang et al., 2013; He et al., 2017 ]。</p>
 <ul>
 <li>2013 ICDM - Community detection in networks with node attributes.</li>
@@ -346,25 +346,25 @@
 <li>以网络拓扑和节点属性为基础进行检测的能力，从而建立了更鲁棒并且性能更好的模型；</li>
 <li>检测大规模网络中更复杂结构的能力。</li>
 </ul>
-<h2 id="4-基于深度学习的社区检测"><a href="#4-基于深度学习的社区检测" class="headerlink" title="4. 基于深度学习的社区检测"></a>4. 基于深度学习的社区检测</h2><ul>
+<h2 id="基于深度学习的社区检测"><a href="#基于深度学习的社区检测" class="headerlink" title="基于深度学习的社区检测"></a>基于深度学习的社区检测</h2><ul>
 <li>左边是社区检测面临的七大挑战：社区数量未知、层次网络、网络异构性、边上符号信息、社区嵌入、动态网络和大规模网络；</li>
 <li>右边是基于深度学习的社区检测方法分类，可分为三大类：基于DNN的方法，基于深度图嵌入（Deep Graph Embedding）的方法和基于GNN的方法。</li>
 </ul>
 <p><img src="/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-02/challenge and approaches.png" alt="image-20201013203728994"></p>
-<h3 id="4-1-基于DNN的社区检测"><a href="#4-1-基于DNN的社区检测" class="headerlink" title="4.1 基于DNN的社区检测"></a>4.1 基于DNN的社区检测</h3><p>在社区检测中，基于DNN的三种常用模型是卷积神经网络（CNNs）、自编码器和生成对抗网络（GANs）。</p>
-<h4 id="4-1-1-基于CNN的方法"><a href="#4-1-1-基于CNN的方法" class="headerlink" title="4.1.1 基于CNN的方法"></a>4.1.1 基于CNN的方法</h4><p>CNNs的两个关键组成部分是卷积操作和卷积层上的池化操作：卷积运算使用卷积内核来减少计算成本；池化操作随后应用于特征映射，以确保CNNs的鲁棒性。</p>
+<h3 id="基于DNN的社区检测"><a href="#基于DNN的社区检测" class="headerlink" title="基于DNN的社区检测"></a>基于DNN的社区检测</h3><p>在社区检测中，基于DNN的三种常用模型是卷积神经网络（CNNs）、自编码器和生成对抗网络（GANs）。</p>
+<h4 id="基于CNN的方法"><a href="#基于CNN的方法" class="headerlink" title="基于CNN的方法"></a>基于CNN的方法</h4><p>CNNs的两个关键组成部分是卷积操作和卷积层上的池化操作：卷积运算使用卷积内核来减少计算成本；池化操作随后应用于特征映射，以确保CNNs的鲁棒性。</p>
 <p>利用CNNs的优势，[2017]设计了一种新颖的CNN模型，以检测拓扑不完整网络（topologically incomplete networks）中的社区，不完整是指从现实世界网络中观测时会丢失一些边。 [2019]在CNN框架中增加稀疏矩阵卷积，来特定地处理与邻接矩阵相关的高维稀疏表示。</p>
 <ul>
 <li>2017 Physica A - Deep community detection in topologically incomplete networks.</li>
 <li>2019 SAC - A deep learning based community detection approach. </li>
 </ul>
-<h4 id="4-1-2-基于自编码器的方法"><a href="#4-1-2-基于自编码器的方法" class="headerlink" title="4.1.2 基于自编码器的方法"></a>4.1.2 基于自编码器的方法</h4><p>堆叠自编码器(Stacked auto-encoders)是用于社区检测的一种非常强大的DNN模型。将自动编码器应用于社区检测的灵感来自以下发现：自动编码器和谱聚类在谱矩阵的低维近似方面具有相似的框架（frameworks）[Cao et al .2018b]。对于网络拓扑方面，[Bhatia and Rani. 2018]设计一种方法通过基于随机游走的个性化PageRank来学习节点社区，并通过优化社区结构的模块度进行微调。为了利用节点属性信息，[Cao et al. 2018b]提出了一种堆叠式自动编码器，该编码器通过组合网络拓扑和节点属性进行社区检测，来增强DNN中隐藏层的泛化能力；为了进一步解决网络拓扑和节点属性之间的匹配问题，[Cao et al.2018a]通过引入自适应参数作为匹配项的折衷控制(trade-off control)，提出了一种图正则化自编码器方法。</p>
+<h4 id="基于自编码器的方法"><a href="#基于自编码器的方法" class="headerlink" title="基于自编码器的方法"></a>基于自编码器的方法</h4><p>堆叠自编码器(Stacked auto-encoders)是用于社区检测的一种非常强大的DNN模型。将自编码器应用于社区检测的灵感来自以下发现：自编码器和谱聚类在谱矩阵的低维近似方面具有相似的框架（frameworks）[Cao et al .2018b]。对于网络拓扑方面，[Bhatia and Rani. 2018]设计一种方法通过基于随机游走的个性化PageRank来学习节点社区，并通过优化社区结构的模块度进行微调。为了利用节点属性信息，[Cao et al. 2018b]提出了一种堆叠式自编码器，该编码器通过组合网络拓扑和节点属性进行社区检测，来增强DNN中隐藏层的泛化能力；为了进一步解决网络拓扑和节点属性之间的匹配问题，[Cao et al.2018a]通过引入自适应参数作为匹配项的折衷控制(trade-off control)，提出了一种图正则化自编码器方法。</p>
 <ul>
 <li>2018b Neurocomputing - Incorporating network structure with node contents for community detection on large networks using deep learning</li>
 <li>2018 Knowl. Inf. Syst - DFuzzy: A deep learning-based fuzzy clustering model for large graphs.</li>
 <li>2018a KSEM - Autoencoder based community detection with adaptive integration of network topology and node contents.</li>
 </ul>
-<p>为避免需要预先设置社区的数量，分层堆叠的自编码器可以根据网络结构有效地找到社区的中心[Bhatia and Rani. 2018]。此外，这种自动选择机制可确保模型严格按照社区标准划分节点。自从提出以来，越来越多的方法开始自适应地学习社区结构，而不是预先定义一个数目。例如，[Choong et al. 2018]引入了混合高斯模型，以从社区结构中捕获高阶模式（higher-order patterns），并对观察到的网络的生成过程进行建模，来检测社区。</p>
+<p>为避免需要预先设置社区的数量，分层堆叠的自编码器可以根据网络结构有效地找到社区的中心[Bhatia and Rani. 2018]。此外，这种自选择机制可确保模型严格按照社区标准划分节点。自从提出以来，越来越多的方法开始自适应地学习社区结构，而不是预先定义一个数目。例如，[Choong et al. 2018]引入了混合高斯模型，以从社区结构中捕获高阶模式（higher-order patterns），并对观察到的网络的生成过程进行建模，来检测社区。</p>
 <ul>
 <li>2018 Knowl. Inf. Syst - DFuzzy: A deep learning-based fuzzy clustering model for large graphs.</li>
 <li>2018 ICDM - Learning community structure with variational autoencoder.</li>
@@ -373,50 +373,50 @@
 <ul>
 <li>2018 IEEE Trans. Cybern. - Deep network embedding for graph representation learning in signed networks.</li>
 </ul>
-<h4 id="4-1-2-基于生成对抗网络（GAN）的方法"><a href="#4-1-2-基于生成对抗网络（GAN）的方法" class="headerlink" title="4.1.2 基于生成对抗网络（GAN）的方法"></a>4.1.2 基于生成对抗网络（GAN）的方法</h4><p>GANs涉及两个相互竞争的深度神经网络，从而可以快速调整训练精度。这些方法通常在无监督的情况下运行，从而生成具有与训练集相同统计特征的新数据，[Wang等，2019]探索了利用GAN来进行高效的图表示学习任务。</p>
+<h4 id="基于生成对抗网络（GAN）的方法"><a href="#基于生成对抗网络（GAN）的方法" class="headerlink" title="基于生成对抗网络（GAN）的方法"></a>基于生成对抗网络（GAN）的方法</h4><p>GANs涉及两个相互竞争的深度神经网络，从而可以快速调整训练精度。这些方法通常在无监督的情况下运行，从而生成具有与训练集相同统计特征的新数据，[Wang等，2019]探索了利用GAN来进行高效的图表示学习任务。</p>
 <ul>
 <li>2019 IEEE Trans. Knowl. Data. - Learning graph representation with generative adversarial nets. </li>
 </ul>
 <p>[Jia et al. 2019]认为基于图聚类的传统社区检测方法无法处理社区的密集重叠（dense overlapping），因为一个节点可能属于多个社区。为此，他们提出了一种新颖的CommunityGAN模型，该模型解决了重叠社区检测和基于GANs的图表示学习；更重要的是，与没有特定含义的图节点表示相比，CommunityGAN具有表示节点对社区的隶属强度的能力。</p>
 <ul>
-<li>2019 WWW - CommunityGAN: Community detection with generative adversarial nets.(…)</li>
+<li>2019 WWW - CommunityGAN: Community detection with generative adversarial nets.(*)</li>
 </ul>
-<h3 id="4-2-基于深度图嵌入的社区检测"><a href="#4-2-基于深度图嵌入的社区检测" class="headerlink" title="4.2 基于深度图嵌入的社区检测"></a>4.2 基于深度图嵌入的社区检测</h3><p>深度图嵌入是将网络中的节点映射到低维空间的一种技术，同时在表示中保留尽可能多的结构信息。图嵌入方法特别适合基于网络分析的机器学习任务，例如，链接预测、节点分类和节点聚类等，因为他们可以直接利用表示中的隐特征而不是去搜索网络。之后，可以利用聚类方法（例如k均值）进行社区检测。</p>
-<h4 id="4-2-1-基于深度非负矩阵分解（NMF）的方法"><a href="#4-2-1-基于深度非负矩阵分解（NMF）的方法" class="headerlink" title="4.2.1 基于深度非负矩阵分解（NMF）的方法"></a>4.2.1 基于深度非负矩阵分解（NMF）的方法</h4><p>非负矩阵分解（NMF）可将一个矩阵分解为两个矩阵，并且这三个矩阵都没有负元素。对于社区检测，通过进一步最小化聚类任务的误差函数，将网络的邻接矩阵近似地分解为两个非负矩阵的乘积。[Ye et al, 2018]提出了一种新颖的深度NMF模型，该模型通过在深度学习过程中，将社区结构映射到原始网络结构来提升性能，并通过添加节点属性形成属性图，基于深度NMF的社区检测仅仅需要将邻接矩阵和节点属性矩阵进行分解。此外，[Li et al, 2018]根据深度特征学习和深度网络嵌入，使用NFM进行基于节点属性和社区嵌入的属性社区检测（attributed community detection）。</p>
+<h3 id="基于深度图嵌入的社区检测"><a href="#基于深度图嵌入的社区检测" class="headerlink" title="基于深度图嵌入的社区检测"></a>基于深度图嵌入的社区检测</h3><p>深度图嵌入是将网络中的节点映射到低维空间的一种技术，同时在表示中保留尽可能多的结构信息。图嵌入方法特别适合基于网络分析的机器学习任务，例如，链接预测、节点分类和节点聚类等，因为他们可以直接利用表示中的隐特征而不是去搜索网络。之后，可以利用聚类方法（例如k均值）进行社区检测。</p>
+<h4 id="基于深度非负矩阵分解（NMF）的方法"><a href="#基于深度非负矩阵分解（NMF）的方法" class="headerlink" title="基于深度非负矩阵分解（NMF）的方法"></a>基于深度非负矩阵分解（NMF）的方法</h4><p>非负矩阵分解（NMF）可将一个矩阵分解为两个矩阵，并且这三个矩阵都没有负元素。对于社区检测，通过进一步最小化聚类任务的误差函数，将网络的邻接矩阵近似地分解为两个非负矩阵的乘积。[Ye et al, 2018]提出了一种新颖的深度NMF模型，该模型通过在深度学习过程中，将社区结构映射到原始网络结构来提升性能，并通过添加节点属性形成属性图，基于深度NMF的社区检测仅仅需要将邻接矩阵和节点属性矩阵进行分解。此外，[Li et al, 2018]根据深度特征学习和深度网络嵌入，使用NFM进行基于节点属性和社区嵌入的属性社区检测（attributed community detection）。</p>
 <ul>
-<li>2018 CIKM - Deep autoencoderlike nonnegative matrix factorization for community detection.(….)</li>
-<li>2018 AAAI - Community detection in attributed graphs: an embedding approach.(….)</li>
+<li>2018 CIKM - Deep autoencoderlike nonnegative matrix factorization for community detection.(*)</li>
+<li>2018 AAAI - Community detection in attributed graphs: an embedding approach.(*)</li>
 </ul>
-<h4 id="4-2-2-基于深度稀疏滤波（SF）的方法"><a href="#4-2-2-基于深度稀疏滤波（SF）的方法" class="headerlink" title="4.2.2 基于深度稀疏滤波（SF）的方法"></a>4.2.2 基于深度稀疏滤波（SF）的方法</h4><p>嵌入可以对成对关系的输入进行编码以避免搜索稀疏的邻接矩阵，因此，稀疏滤波（SF）是一种有效的深度特征学习（deep feature learning）算法，只需要一个超参数即可处理高维输入[Ngiam. 2011]。 [Xie et al. 2018]提出了一种有效的网络表示方法，该方法通过深度稀疏滤波的方式在网络社区发现中发挥作用，该方法尤其适用于大型网络。一种无监督的深度学习算法提取网络特征，然后用于社区划分。</p>
+<h4 id="基于深度稀疏滤波（SF）的方法"><a href="#基于深度稀疏滤波（SF）的方法" class="headerlink" title="基于深度稀疏滤波（SF）的方法"></a>基于深度稀疏滤波（SF）的方法</h4><p>嵌入可以对成对关系的输入进行编码以避免搜索稀疏的邻接矩阵，因此，稀疏滤波（SF）是一种有效的深度特征学习（deep feature learning）算法，只需要一个超参数即可处理高维输入[Ngiam. 2011]。 [Xie et al. 2018]提出了一种有效的网络表示方法，该方法通过深度稀疏滤波的方式在网络社区发现中发挥作用，该方法尤其适用于大型网络。一种无监督的深度学习算法提取网络特征，然后用于社区划分。</p>
 <ul>
 <li>2011 NIPS - Sparse ﬁltering</li>
 <li>2018 Pattern Recognit - Community discovery in networks with deep sparse ﬁltering</li>
 </ul>
-<h4 id="4-2-3-基于社区嵌入的方法"><a href="#4-2-3-基于社区嵌入的方法" class="headerlink" title="4.2.3 基于社区嵌入的方法"></a>4.2.3 基于社区嵌入的方法</h4><p>传统上，图嵌入专注于单个节点，但是网络中的社区反映了高阶相似性（high-order proximities），例如相似的观点和行为。这是图嵌入的一个重要但尚未充分研究的领域，重点是社区嵌入，其目标是了解低维空间中社区的节点分布。 [Cavallari et al，2017]调查了这一想法，认为这种新颖且简单（non-trivial）的策略可能有益于社区发现。例如，通过一种过渡（transitional）图嵌入的方法，可以使用节点分布来保留网络结构，从而反向改善社区检测。 [Zhang et al，2018]提出了一种保留社区的网络嵌入方法来学习网络表示。此外，[Tu et al，2019]提出了一种新的图嵌入模型，该模型可以学习节点和社区的嵌入，在优化过程中二者是交替进行，而非同时解决这两个任务。</p>
+<h4 id="基于社区嵌入的方法"><a href="#基于社区嵌入的方法" class="headerlink" title="基于社区嵌入的方法"></a>基于社区嵌入的方法</h4><p>传统上，图嵌入专注于单个节点，但是网络中的社区反映了高阶相似性（high-order proximities），例如相似的观点和行为。这是图嵌入的一个重要但尚未充分研究的领域，重点是社区嵌入，其目标是了解低维空间中社区的节点分布。 [Cavallari et al，2017]调查了这一想法，认为这种新颖且简单（non-trivial）的策略可能有益于社区发现。例如，通过一种过渡（transitional）图嵌入的方法，可以使用节点分布来保留网络结构，从而反向改善社区检测。 [Zhang et al，2018]提出了一种保留社区的网络嵌入方法来学习网络表示。此外，[Tu et al，2019]提出了一种新的图嵌入模型，该模型可以学习节点和社区的嵌入，在优化过程中二者是交替进行，而非同时解决这两个任务。</p>
 <ul>
-<li>2017 CIKM - Learning community embedding with community detection and node embedding on graphs.(…)</li>
-<li>2018 AAAI - Cosine: Community-preserving social network embedding from information diffusion cascades.(…)</li>
-<li>2019 IEEE Trans. Knowl. Data Eng. - A uniﬁed framework for community detection and network representation learning.(…)</li>
+<li>2017 CIKM - Learning community embedding with community detection and node embedding on graphs.(*)</li>
+<li>2018 AAAI - Cosine: Community-preserving social network embedding from information diffusion cascades.(*)</li>
+<li>2019 IEEE Trans. Knowl. Data Eng. - A uniﬁed framework for community detection and network representation learning.(*)</li>
 </ul>
-<h3 id="4-3-基于GNN的社区检测"><a href="#4-3-基于GNN的社区检测" class="headerlink" title="4.3 基于GNN的社区检测"></a>4.3 基于GNN的社区检测</h3><p>GNNs是图挖掘和深度学习的技术融合，它们的快速发展证明了它们在建模和捕获图数据中复杂关系的能力。例如，[Chen et al，2019]中用于监督社区检测的GNN引入了一个非回溯算子（a non-backtracking operator）来定义边邻接性(edge adjacency)，它不仅是提高学习性能的可行性方法，而且算子选择也很方便。</p>
+<h3 id="基于GNN的社区检测"><a href="#基于GNN的社区检测" class="headerlink" title="基于GNN的社区检测"></a>基于GNN的社区检测</h3><p>GNNs是图挖掘和深度学习的技术融合，它们的快速发展证明了它们在建模和捕获图数据中复杂关系的能力。例如，[Chen et al，2019]中用于监督社区检测的GNN引入了一个非回溯算子（a non-backtracking operator）来定义边邻接性(edge adjacency)，它不仅是提高学习性能的可行性方法，而且算子选择也很方便。</p>
 <p>图卷积网络（GCNs）继承了CNNs快速学习的特点，并通过集成了考虑网络中实体概率分布的概率模型，进一步改善了这个优点。例如，[Jin et al. 2019]将马尔可夫随机场与语义信息属性网络相结合以支持半监督学习，而[Shchur and Gunnemann，2019]集成了伯努利-泊松（Bernoulli-Poisson）概率模型与GCN来实现重叠社区检测，使得卷积层可以识别复杂的网络模式。</p>
 <ul>
 <li>2019 ICLR - Supervised community detection with line graph neural networks.</li>
 <li>2019 AAAI - Graph convolutional networks meet markov random ﬁelds: Semisupervised community detection in attribute networks.</li>
 <li>2019 KDD Workshop DLG’19 - Overlapping community detection with graph neural networks.</li>
 </ul>
-<h2 id="5-挑战和机遇"><a href="#5-挑战和机遇" class="headerlink" title="5. 挑战和机遇"></a>5. 挑战和机遇</h2><h3 id="5-1-社区数量未知"><a href="#5-1-社区数量未知" class="headerlink" title="5.1 社区数量未知"></a>5.1 社区数量未知</h3><p>到目前为止，网络中社区数量的未知性没有得到很好的解决。在现实世界中，提取的大多数数据都没有标签，因此，在机器学习中，社区检测通常被视为无监督的聚类问题。这导致了一个左右为难（catch-22）问题：需要对数据进行标记以确定社区的数量，但是在对数据进行标记之前需要知道社区的数量。深度学习方法通过根据一个或多个隐空间中的相似性对节点进行聚类，在某种程度上解决此问题。但是，聚类算法仍然需要提前知道最终的聚类数。</p>
+<h2 id="挑战和机遇"><a href="#挑战和机遇" class="headerlink" title="挑战和机遇"></a>挑战和机遇</h2><h3 id="社区数量未知"><a href="#社区数量未知" class="headerlink" title="社区数量未知"></a>社区数量未知</h3><p>到目前为止，网络中社区数量的未知性没有得到很好的解决。在现实世界中，提取的大多数数据都没有标签，因此，在机器学习中，社区检测通常被视为无监督的聚类问题。这导致了一个左右为难（catch-22）问题：需要对数据进行标记以确定社区的数量，但是在对数据进行标记之前需要知道社区的数量。深度学习方法通过根据一个或多个隐空间中的相似性对节点进行聚类，在某种程度上解决此问题。但是，聚类算法仍然需要提前知道最终的聚类数。</p>
 <p>机会(Opportunities:)：到目前为止，一种有效的解决方案是通过分析网络拓扑来计算社区数量，例如[Bhatia and Rani，2018; Bhatia and Rani，2019年]基于随机游走的个性化PageRank。但是，这类方法不能保证将网络中的每个节点都分配给一个社区。因此，尚未找到针对该问题完整的解决方案。</p>
 <ul>
 <li>2018 Knowl. Inf. Syst. - DFuzzy: A deep learning-based fuzzy clustering model for large graphs.</li>
 <li>2019 Future Gener. Comput. Syst. - A distributed overlapping community detection model for large graphs using autoencoder.</li>
 </ul>
-<h3 id="5-2-层次网络（Hierarchical-Networks）"><a href="#5-2-层次网络（Hierarchical-Networks）" class="headerlink" title="5.2 层次网络（Hierarchical Networks）"></a>5.2 层次网络（Hierarchical Networks）</h3><p>层次网络由分层网络组成，其中每层网络共享特定的功能（functions）。因此，社区检测策略必须能够提取分层表示（layer-wise representations）。挑战包括：区分不同的关系类型（例如水平和垂直），以及管理（manage）不同层中不同级别（levels）的稀疏性。</p>
+<h3 id="层次网络（Hierarchical-Networks）"><a href="#层次网络（Hierarchical-Networks）" class="headerlink" title="层次网络（Hierarchical Networks）"></a>层次网络（Hierarchical Networks）</h3><p>层次网络由分层网络组成，其中每层网络共享特定的功能（functions）。因此，社区检测策略必须能够提取分层表示（layer-wise representations）。挑战包括：区分不同的关系类型（例如水平和垂直），以及管理（manage）不同层中不同级别（levels）的稀疏性。</p>
 <p>机会：[Song和Thiagarajan，2018年]提出了一种多层DeepWalk，通过创建层间的边（inter-layer edges）以利用跨不同层（across different layers）的依赖性，同时保留层次结构；它学习每层中每个节点的表示，并将这些表示通过优化策略进行微调。另一个可能的解决方案是同时优化适用于所有层的公共表示和保留特定层网络结构的局部表示。此外，上述方案对于层次网络中层数的可伸缩性令人怀疑，在设计新的解决方案时应予以考虑。另外，需要新的模型来区分层次网络中不同类型的连接（links）。因此，在我们利用深度学习方法来检测层次网络的社区之前，还有大量工作要做。</p>
 <ul>
 <li>2019 IEEE Big Data - Improved deep embeddings for inferencing with multi-layered networks.</li>
 </ul>
-<h3 id="5-3-网络异构性（Network-Heterogeneity）"><a href="#5-3-网络异构性（Network-Heterogeneity）" class="headerlink" title="5.3 网络异构性（Network Heterogeneity）"></a>5.3 网络异构性（Network Heterogeneity）</h3><p>网络异质性是指包含明显不同类型的节点和边的网络，这意味着用于同构网络的策略不一定有效。特别地，在模型和算法的设计中需要解决与每种类型的节点相关的不同概率分布。</p>
+<h3 id="网络异构性（Network-Heterogeneity）"><a href="#网络异构性（Network-Heterogeneity）" class="headerlink" title="网络异构性（Network Heterogeneity）"></a>网络异构性（Network Heterogeneity）</h3><p>网络异质性是指包含明显不同类型的节点和边的网络，这意味着用于同构网络的策略不一定有效。特别地，在模型和算法的设计中需要解决与每种类型的节点相关的不同概率分布。</p>
 <p>机会：迄今为止，很少有深度学习方法考虑网络异构性。[Chang et al，2015]通过非线性嵌入函数来捕获异构网络中节点之间的复杂交互，从而解决了这个问题；然而，他们的方法忽略了节点之间关系的不同语义。异构网络中社区检测的机会可能包括：</p>
 <ol>
 <li>深度图嵌入模型和支持算法（supporting algorithms）；</li>
@@ -426,13 +426,13 @@
 <ul>
 <li>2015 KDD - Heterogeneous network embedding via deep architectures.</li>
 </ul>
-<h3 id="5-4-边上符号信息（Signed-Information-on-Edges）"><a href="#5-4-边上符号信息（Signed-Information-on-Edges）" class="headerlink" title="5.4 边上符号信息（Signed Information on Edges）"></a>5.4 边上符号信息（Signed Information on Edges）</h3><p>现实世界中许多网络都有代表正负符号的边，该问题的挑战在于如何以不同的方式区别对待这样的边。</p>
+<h3 id="边上符号信息（Signed-Information-on-Edges）"><a href="#边上符号信息（Signed-Information-on-Edges）" class="headerlink" title="边上符号信息（Signed Information on Edges）"></a>边上符号信息（Signed Information on Edges）</h3><p>现实世界中许多网络都有代表正负符号的边，该问题的挑战在于如何以不同的方式区别对待这样的边。</p>
 <p>机会：一种可行的解决方案是通过设计随机行走过程来合并（incorporate）正边和负边。 [Hu et al，2019]按照这个想法，设计了一个基于词嵌入的稀疏图嵌入模型，但是对于现实世界中某些小型的带符号网络，其方法的性能不如基准(baseline)的谱方法；另一种可能解决方案是重建有符号网络的邻接矩阵表示，但是，这带来了其他问题，因为在现实世界中，邻接关系绝大多数都是正边。 [Shen and Chung，2018]通过增加了惩罚项，来确保其堆叠的自编码器模型更多地关注在大量的正边上重建稀疏的负边，但是，如果没有对社区中大多数关系的先验知识（这在许多情况下是现实的），该方法将行不通。因此，目前仍然需要在符号网络中进行无监督社区检测的有效方法。</p>
 <ul>
 <li>2019 J. Ambient Intell. Hum. Comput. - Sparse network embedding for community detection and sign prediction in signed social networks</li>
 <li>2018 IEEE Trans. Cybern. - Deep network embedding for graph representation learning in signed networks.</li>
 </ul>
-<h3 id="5-5-社区嵌入"><a href="#5-5-社区嵌入" class="headerlink" title="5.5 社区嵌入"></a>5.5 社区嵌入</h3><p>社区嵌入的目的是创建社区的表示形式，而不是每个节点的表示形式。因此，焦点转移到了社区感知的高阶邻近度（high-order proximity），而不是与节点邻域相关的1阶或2阶邻近度。这是一个新兴的研究领域，需要克服三个主要挑战：</p>
+<h3 id="社区嵌入"><a href="#社区嵌入" class="headerlink" title="社区嵌入"></a>社区嵌入</h3><p>社区嵌入的目的是创建社区的表示形式，而不是每个节点的表示形式。因此，焦点转移到了社区感知的高阶邻近度（high-order proximity），而不是与节点邻域相关的1阶或2阶邻近度。这是一个新兴的研究领域，需要克服三个主要挑战：</p>
 <ol>
 <li>高计算成本；</li>
 <li>节点与社区结构之间的关系评估；</li>
@@ -444,7 +444,7 @@
 <li>确定如何直接嵌入社区结构以获得一系列好处，例如快速计算； </li>
 <li>在集成了深度社区检测学习的模型中，设一种计优化超参数的方法。</li>
 </ol>
-<h3 id="5-6-动态网络"><a href="#5-6-动态网络" class="headerlink" title="5.6 动态网络"></a>5.6 动态网络</h3><p>动态变化会影响网络拓扑或节点属性，每个属性都必须以自己的方式进行处理。拓扑更改（例如添加或删除节点或边）不仅会导致局部社区发生更改，而且还会导致整个网络的社区划分发生改变[Liu et al. 2020]。使用动态网络，需要通过一系列网络快照来重新训练深度学习模型。动态网络的时间属性（temporal attributes）所面临的技术挑战在于动态的深度特征提取。</p>
+<h3 id="动态网络"><a href="#动态网络" class="headerlink" title="动态网络"></a>动态网络</h3><p>动态变化会影响网络拓扑或节点属性，每个属性都必须以自己的方式进行处理。拓扑更改（例如添加或删除节点或边）不仅会导致局部社区发生更改，而且还会导致整个网络的社区划分发生改变[Liu et al. 2020]。使用动态网络，需要通过一系列网络快照来重新训练深度学习模型。动态网络的时间属性（temporal attributes）所面临的技术挑战在于动态的深度特征提取。</p>
 <ul>
 <li>2020 WWW - Detecting the evolving community structure in dynamic social networks</li>
 </ul>
@@ -454,9 +454,9 @@
 <li>学习嵌入时间特征（temporal feature ）和社区结构信息（community structure information）的深层模式（deep patterns）；</li>
 <li>设计一种统一深度学习方法用于社区检测，且该方法可以同时处理空间和时间特征。</li>
 </ol>
-<h3 id="5-7-大规模网络"><a href="#5-7-大规模网络" class="headerlink" title="5.7 大规模网络"></a>5.7 大规模网络</h3><p>当先现实世界中，大型网络可以包含数百万节点、边和结构模式（structural patterns），并且还会高度动态化，如类似Facebook和Twitter的社交网络。在大规模网络中社区发现实现之前，有许多需要解决的问题。例如，大型网络可能具有其固有的规模特征，例如社交网络中的无规模（即幂律度分布，比如完全图度分布，d=n-1的概率是1，d=0的概率是0；随机网络度分布满足正态分布；无尺度网络：大部分的节点只有比较少的连接，而少数节点有大量的连接，不存在特征度数，故称无尺度）。这种分布会影响深度学习在社区检测中的性能，可扩展性也是使深度学习能够检测大型网络中社区的另一个关键问题，而且不断变化的网络类型进一步增加了检测难度。总体而言，大规模网络中的深度社区检测涉及上述所有六个挑战以及可扩展学习的挑战。</p>
+<h3 id="大规模网络"><a href="#大规模网络" class="headerlink" title="大规模网络"></a>大规模网络</h3><p>当先现实世界中，大型网络可以包含数百万节点、边和结构模式（structural patterns），并且还会高度动态化，如类似Facebook和Twitter的社交网络。在大规模网络中社区发现实现之前，有许多需要解决的问题。例如，大型网络可能具有其固有的规模特征，例如社交网络中的无规模（即幂律度分布，比如完全图度分布，d=n-1的概率是1，d=0的概率是0；随机网络度分布满足正态分布；无尺度网络：大部分的节点只有比较少的连接，而少数节点有大量的连接，不存在特征度数，故称无尺度）。这种分布会影响深度学习在社区检测中的性能，可扩展性也是使深度学习能够检测大型网络中社区的另一个关键问题，而且不断变化的网络类型进一步增加了检测难度。总体而言，大规模网络中的深度社区检测涉及上述所有六个挑战以及可扩展学习的挑战。</p>
 <p>机会：要在大规模网络中充分利用丰富的信息，就需要新的无监督聚类算法，该算法要具有较低的计算复杂度和更大的灵活性。分布式计算在大规模机器学习中很流行。因此，一个可能的方向是设计一种鲁棒的深度学习社区检测方法，且需要实现高性能的协同计算。另一方面，关于高维邻接矩阵，深度学习中常用的降维关键策略（即矩阵低秩逼近）不适用于大规模网络，即使是目前的分布式计算解决方案也是相当耗费计算资源。因此，大规模网络中社区划分中迫切需要新的深度学习框架、模型和算法。作为社区检测中最大的挑战，这些框架在准确性和速度上需要远远超过当前的基准（benchmarks）。</p>
-<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><p>传统的社区检测方法通常依赖于统计推断和常规的机器学习方法，深度学习的进步推动了社区检测策略发展，该策略具有更强大的能力来处理高维图数据。在这篇综述中，作者以三种广泛的深度学习方法回顾了社区检测领域中模型和算法开发的技术趋势以及当前的发展状况，并确定了需要通过深度学习来克服社区发现的七个挑战。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>传统的社区检测方法通常依赖于统计推断和常规的机器学习方法，深度学习的进步推动了社区检测策略发展，该策略具有更强大的能力来处理高维图数据。在这篇综述中，作者以三种广泛的深度学习方法回顾了社区检测领域中模型和算法开发的技术趋势以及当前的发展状况，并确定了需要通过深度学习来克服社区发现的七个挑战。</p>
 
     </div>
 
@@ -522,7 +522,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-介绍"><span class="nav-number">1.</span> <span class="nav-text">1.介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-相关定义"><span class="nav-number">2.</span> <span class="nav-text">2. 相关定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-为什么要用深度学习做社区检测？"><span class="nav-number">3.</span> <span class="nav-text">3. 为什么要用深度学习做社区检测？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-基于深度学习的社区检测"><span class="nav-number">4.</span> <span class="nav-text">4. 基于深度学习的社区检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-基于DNN的社区检测"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 基于DNN的社区检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-1-基于CNN的方法"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1 基于CNN的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-2-基于自编码器的方法"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2 基于自编码器的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-2-基于生成对抗网络（GAN）的方法"><span class="nav-number">4.1.3.</span> <span class="nav-text">4.1.2 基于生成对抗网络（GAN）的方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-基于深度图嵌入的社区检测"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 基于深度图嵌入的社区检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-基于深度非负矩阵分解（NMF）的方法"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 基于深度非负矩阵分解（NMF）的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-基于深度稀疏滤波（SF）的方法"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2 基于深度稀疏滤波（SF）的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-基于社区嵌入的方法"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 基于社区嵌入的方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-基于GNN的社区检测"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 基于GNN的社区检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-挑战和机遇"><span class="nav-number">5.</span> <span class="nav-text">5. 挑战和机遇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-社区数量未知"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 社区数量未知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-层次网络（Hierarchical-Networks）"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 层次网络（Hierarchical Networks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-网络异构性（Network-Heterogeneity）"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 网络异构性（Network Heterogeneity）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-边上符号信息（Signed-Information-on-Edges）"><span class="nav-number">5.4.</span> <span class="nav-text">5.4 边上符号信息（Signed Information on Edges）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-社区嵌入"><span class="nav-number">5.5.</span> <span class="nav-text">5.5 社区嵌入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-6-动态网络"><span class="nav-number">5.6.</span> <span class="nav-text">5.6 动态网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-大规模网络"><span class="nav-number">5.7.</span> <span class="nav-text">5.7 大规模网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-总结"><span class="nav-number">6.</span> <span class="nav-text">6. 总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关定义"><span class="nav-number">2.</span> <span class="nav-text">相关定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用深度学习做社区检测？"><span class="nav-number">3.</span> <span class="nav-text">为什么要用深度学习做社区检测？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于深度学习的社区检测"><span class="nav-number">4.</span> <span class="nav-text">基于深度学习的社区检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于DNN的社区检测"><span class="nav-number">4.1.</span> <span class="nav-text">基于DNN的社区检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于CNN的方法"><span class="nav-number">4.1.1.</span> <span class="nav-text">基于CNN的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于自编码器的方法"><span class="nav-number">4.1.2.</span> <span class="nav-text">基于自编码器的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于生成对抗网络（GAN）的方法"><span class="nav-number">4.1.3.</span> <span class="nav-text">基于生成对抗网络（GAN）的方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于深度图嵌入的社区检测"><span class="nav-number">4.2.</span> <span class="nav-text">基于深度图嵌入的社区检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于深度非负矩阵分解（NMF）的方法"><span class="nav-number">4.2.1.</span> <span class="nav-text">基于深度非负矩阵分解（NMF）的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于深度稀疏滤波（SF）的方法"><span class="nav-number">4.2.2.</span> <span class="nav-text">基于深度稀疏滤波（SF）的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于社区嵌入的方法"><span class="nav-number">4.2.3.</span> <span class="nav-text">基于社区嵌入的方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于GNN的社区检测"><span class="nav-number">4.3.</span> <span class="nav-text">基于GNN的社区检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#挑战和机遇"><span class="nav-number">5.</span> <span class="nav-text">挑战和机遇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#社区数量未知"><span class="nav-number">5.1.</span> <span class="nav-text">社区数量未知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#层次网络（Hierarchical-Networks）"><span class="nav-number">5.2.</span> <span class="nav-text">层次网络（Hierarchical Networks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络异构性（Network-Heterogeneity）"><span class="nav-number">5.3.</span> <span class="nav-text">网络异构性（Network Heterogeneity）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边上符号信息（Signed-Information-on-Edges）"><span class="nav-number">5.4.</span> <span class="nav-text">边上符号信息（Signed Information on Edges）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#社区嵌入"><span class="nav-number">5.5.</span> <span class="nav-text">社区嵌入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态网络"><span class="nav-number">5.6.</span> <span class="nav-text">动态网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大规模网络"><span class="nav-number">5.7.</span> <span class="nav-text">大规模网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
