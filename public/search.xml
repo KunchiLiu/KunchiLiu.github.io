@@ -19,7 +19,7 @@
 \begin{aligned}
 Q &=\frac{1}{2m}\sum_{i,j}\left [A_{ij}-\frac{k_i k_j}{2m}\right]\delta\left(c_i,c_j \right)\\
 \delta\left(c_i,c_j \right) &= \begin{cases} 1& c_i=c_j\\0 &c_i \neq c_j\end{cases}
-\end{aligned}</script><p>其中，$A<em>{ij}$表示节点$i$与节点$j$之间边的权重，网络不是带权图时，表示连边数；$k_i=\sum</em>{j} A<em>{ij}$表示所有与节点$i$相连的边的权重之和（度数）；$c_i$表示节点$i$所属的社区；$m=\frac{1}{2}\sum</em>{ij}A_{ij}$表示所有边的权重之和（边数），这里重复计算了边数，所以会除以2。$Q$的取值范围是$\left[-\frac{1}{2},1\right)$。</p>
+\end{aligned}</script><p>其中，<script type="math/tex">A_{ij}</script>表示节点<script type="math/tex">i</script>与节点$j$之间边的权重，网络不是带权图时，表示连边数；<script type="math/tex">k_i=\sum_{j} A_{ij}</script>表示所有与节点$i$相连的边的权重之和（度数）；$c<em>i$表示节点$i$所属的社区；$m=\frac{1}{2}\sum</em>{ij}A_{ij}$表示所有边的权重之和（边数），这里重复计算了边数，所以会除以2。$Q$的取值范围是$\left[-\frac{1}{2},1\right)$。</p>
 <ul>
 <li>当图中只有两个节点，把两个节点各分为1个社区，那么$Q$取值为$-\frac{1}{2}$；</li>
 <li>$Q$的上限为1，越接近这个值，就说明社区结构越明显；</li>
