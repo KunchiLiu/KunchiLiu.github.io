@@ -163,7 +163,7 @@ H(P)=-\sum_{i=1}^n p_i\log_2 p_i
 </tbody>
 </table>
 </div>
-<p>有了特定层次的编码方案，就可以计算该方案的平均编码长度了，定义：$p<em>{\alpha}$为对象$\alpha$出现的概率，$q</em>{i\curvearrowright}$为类别$i$出现的概率，同样也是类别$i$终止标记出现的概率，它们三个都是全局归一化的概率，即：</p>
+<p>有了特定层次的编码方案，就可以计算该方案的平均编码长度了，定义：<script type="math/tex">p_{\alpha}</script>为对象<script type="math/tex">\alpha</script>出现的概率，<script type="math/tex">q_{i\curvearrowright}</script>为类别$i$出现的概率，同样也是类别$i$终止标记出现的概率，它们三个都是全局归一化的概率，即：</p>
 <script type="math/tex; mode=display">
 \begin{equation} 
 \underbrace{\sum_i q_{i\curvearrowright}}_{\text{类别的概率总和}} + \underbrace{\sum_{\alpha}p_{\alpha}}_{\text{编码对象的概率总和}} + \underbrace{\sum_i q_{i\curvearrowright}}_{\text{终止标记的概率总和}} = 1
