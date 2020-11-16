@@ -47,31 +47,36 @@
   };
 </script>
 
-  <meta name="description" content="竹贵有节，学贵有恒。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="北流的笔记小屋">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="top 命令top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。为了显示详细的进行命令，这里输入： 1top -c  下面进行分析： 第一行  系统信息    显示信息 含义     03:02:19 系统时间   up 175 days，21:01 已运行时间   1 user 当前登录用户，包含系统用户   47.94，36.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux知识点笔记">
+<meta property="og:url" content="http://yoursite.com/2020/11/12/Linux%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="北流的笔记小屋">
-<meta property="og:description" content="竹贵有节，学贵有恒。">
+<meta property="og:description" content="top 命令top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。为了显示详细的进行命令，这里输入： 1top -c  下面进行分析： 第一行  系统信息    显示信息 含义     03:02:19 系统时间   up 175 days，21:01 已运行时间   1 user 当前登录用户，包含系统用户   47.94，36.">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/11/12/Linux%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/top-c%E5%91%BD%E4%BB%A4%E6%88%AA%E5%9B%BE.png">
+<meta property="article:published_time" content="2020-11-12T02:36:49.000Z">
+<meta property="article:modified_time" content="2020-11-16T06:26:11.089Z">
 <meta property="article:author" content="刘坤池">
+<meta property="article:tag" content="Linux命令">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/11/12/Linux%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/top-c%E5%91%BD%E4%BB%A4%E6%88%AA%E5%9B%BE.png">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2020/11/12/Linux%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>北流的笔记小屋</title>
+  <title>Linux知识点笔记 | 北流的笔记小屋</title>
   
 
 
@@ -217,10 +222,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/12/Linux%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -234,8 +239,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/11/12/Linux%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Linux知识点笔记</a>
+          Linux知识点笔记
         </h1>
 
         <div class="post-meta">
@@ -266,7 +270,14 @@
                 </span>
             </span>
 
-          <br>
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-file-word-o"></i>
@@ -291,7 +302,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="top-命令"><a href="#top-命令" class="headerlink" title="top 命令"></a>top 命令</h2><p>top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。为了显示详细的进行命令，这里输入：</p>
+        <h2 id="top-命令"><a href="#top-命令" class="headerlink" title="top 命令"></a>top 命令</h2><p>top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。为了显示详细的进行命令，这里输入：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top -c</span><br></pre></td></tr></table></figure>
 <p><img src="/2020/11/12/Linux%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/top-c命令截图.png" alt="top-c命令截图"></p>
 <p>下面进行分析：</p>
@@ -579,398 +590,36 @@
 </ul>
 <h3 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.cnblogs.com/Anker/p/3271773.html" target="_blank" rel="noopener">孤儿进程与僵尸进程总结</a></p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/Linux%E5%91%BD%E4%BB%A4/" rel="tag"># Linux命令</a>
+          </div>
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-%E7%BB%9F%E8%AE%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="刘坤池">
-      <meta itemprop="description" content="竹贵有节，学贵有恒。">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="北流的笔记小屋">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-%E7%BB%9F%E8%AE%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">社区发现方法调研-统计机器学习</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-10-15 15:04:02" itemprop="dateCreated datePublished" datetime="2020-10-15T15:04:02+08:00">2020-10-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-19 16:27:50" itemprop="dateModified" datetime="2020-10-19T16:27:50+08:00">2020-10-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">社区发现</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这次调研主要参考了2017年的一篇综述《Network Community Detection: A Review and Visual Survey》，文中主要介绍了基于统计推断和机器学习的社区检测方法，还包括一些 的数据集和评估指标等，这里只介绍一些传统方法，更多可以看原论文和参考中第二个链接。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-%E7%BB%9F%E8%AE%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-%E7%BB%9F%E8%AE%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="prev" title="社区发现方法调研-统计机器学习">
+      <i class="fa fa-chevron-left"></i> 社区发现方法调研-统计机器学习
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="刘坤池">
-      <meta itemprop="description" content="竹贵有节，学贵有恒。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="北流的笔记小屋">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">社区发现方法调研-深度学习</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-15 13:58:53 / 修改时间：15:02:58" itemprop="dateCreated datePublished" datetime="2020-10-15T13:58:53+08:00">2020-10-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">社区发现</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>11k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>这次调研主要是从参考了发表在IJCAI 2020上一篇综述《Deep Learning for Community Detection: Progress, Challenges and Opportunities》，作者以三种广泛的深度学习方法回顾了社区检测领域中模型和算法开发的技术趋势以及当前的发展状况，并确定了需要通过深度学习来克服社区发现的七个挑战。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/15/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0%E6%96%B9%E6%B3%95%E8%B0%83%E7%A0%94-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/11/Python%E4%B8%AD%E8%B0%83%E7%94%A8C%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="刘坤池">
-      <meta itemprop="description" content="竹贵有节，学贵有恒。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="北流的笔记小屋">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/11/Python%E4%B8%AD%E8%B0%83%E7%94%A8C%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81/" class="post-title-link" itemprop="url">Python中调用C语言代码</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-10-11 18:29:06 / 修改时间：20:38:03" itemprop="dateCreated datePublished" datetime="2019-10-11T18:29:06+08:00">2019-10-11</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首先，我们要明确为什么要在Python中调用C？比较常见原因如下： </p>
-<ul>
-<li>你要提升代码的运行速度，而且你知道C要比Python快50倍以上。</li>
-<li>C语言中有很多传统类库，而且有些正是你想要的，但你又不想用Python去重写它们</li>
-<li>想对从内存到文件接口这样的底层资源进行访问。 </li>
-<li>不需要理由，Just想玩玩。</li>
-</ul>
-<p>更详细请点击<a href="https://blog.csdn.net/qq_35636311/article/details/78255568" target="_blank" rel="noopener">这里</a>。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/10/11/Python%E4%B8%AD%E8%B0%83%E7%94%A8C%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="刘坤池">
-      <meta itemprop="description" content="竹贵有节，学贵有恒。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="北流的笔记小屋">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">推荐系统论文笔记</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-21 16:58:20" itemprop="dateCreated datePublished" datetime="2019-05-21T16:58:20+08:00">2019-05-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-28 21:36:23" itemprop="dateModified" datetime="2019-11-28T21:36:23+08:00">2019-11-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
-                    <span itemprop="name">推荐系统</span>
-                  </a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文主要介绍一些自己阅读推荐统的论文笔记，会不定期更新，目前是排序学习的一些相关论文。</p>
-<ul>
-<li>排序是对一组物品列表按照某种方式进行排序，来最大化整个列表的效用的过程，广泛应用于搜索引擎、推荐系统、机器翻译、对话系统甚至计算生物学。一些监督机器学习技术经常被广泛应用在这些问题中，这些技术称作排序学习技术。</li></ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/05/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
   
 
   </div>
-
-  
-
 
 
           </div>
@@ -999,6 +648,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#top-命令"><span class="nav-number">1.</span> <span class="nav-text">top 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一行-系统信息"><span class="nav-number">1.1.</span> <span class="nav-text">第一行  系统信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二行-进程信息"><span class="nav-number">1.2.</span> <span class="nav-text">第二行 进程信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三行-CPU使用情况"><span class="nav-number">1.3.</span> <span class="nav-text">第三行 CPU使用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四行-内存状态"><span class="nav-number">1.4.</span> <span class="nav-text">第四行 内存状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五行-swap交换分区信息"><span class="nav-number">1.5.</span> <span class="nav-text">第五行 swap交换分区信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六行-空行"><span class="nav-number">1.6.</span> <span class="nav-text">第六行 空行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七行-各进程（任务）的状态监控"><span class="nav-number">1.7.</span> <span class="nav-text">第七行 各进程（任务）的状态监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top后使用的命令"><span class="nav-number">1.8.</span> <span class="nav-text">top后使用的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.9.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#孤儿进程和僵尸进程"><span class="nav-number">2.</span> <span class="nav-text">孤儿进程和僵尸进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-1"><span class="nav-number">2.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -1153,56 +803,6 @@
   
 
   
-      
-<script type="text/x-mathjax-config">
-    MathJax.Ajax.config.path['mhchem'] = '//cdn.jsdelivr.net/npm/mathjax-mhchem@3';
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-        extensions: ['[mhchem]/mhchem.js'],
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script>
-
-    
 
   
 
