@@ -3,7 +3,9 @@
   <entry>
     <title>Linux知识点笔记</title>
     <url>/2020/11/12/Linux%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="top-命令"><a href="#top-命令" class="headerlink" title="top 命令"></a>top 命令</h2><p>top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。为了显示详细的进行命令，这里输入：</p>
+    <content><![CDATA[<p>这篇博客主要记录自己在使用Linux服务器时，常使用的一些命令以及需要掌握的知识。很多参考了很多博主的总结，都附上了参考链接，后续内容会根据自己的学习历程持续更新。</p>
+<a id="more"></a>
+<h2 id="top-命令"><a href="#top-命令" class="headerlink" title="top 命令"></a>top 命令</h2><p>top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。为了显示详细的进行命令，这里输入：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">top -c</span><br></pre></td></tr></table></figure>
 <p><img src="/2020/11/12/Linux%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/top-c命令截图.png" alt="top-c命令截图"></p>
 <p>下面进行分析：</p>
