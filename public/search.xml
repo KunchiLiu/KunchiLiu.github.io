@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>算法刷题笔记</title>
+    <url>/2020/11/25/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p>主要记录自己在刷题过程的一些笔记和思考，便于随时复习，目前先刷一遍《剑指Offer》和其他的网上看的面试题。</p>
+<a id="more"></a>
+<h2 id="剑指Offer"><a href="#剑指Offer" class="headerlink" title="剑指Offer"></a>剑指Offer</h2><h3 id="36"><a href="#36" class="headerlink" title="36"></a>36</h3><h1 id="牛客编程巅峰赛S2第3场-青铜-amp-白银-amp-黄金"><a href="#牛客编程巅峰赛S2第3场-青铜-amp-白银-amp-黄金" class="headerlink" title="牛客编程巅峰赛S2第3场 - 青铜&amp;白银&amp;黄金"></a>牛客编程巅峰赛S2第3场 - 青铜&amp;白银&amp;黄金</h1><p><a href="https://ac.nowcoder.com/acm/contest/9246" target="_blank" rel="noopener">比赛链接</a></p>
+<h3 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h3><h3 id="第二题-简单的公式"><a href="#第二题-简单的公式" class="headerlink" title="第二题 简单的公式"></a>第二题 简单的公式</h3><p>题目：</p>
+<p>现在有<script type="math/tex">3</script>个数组<script type="math/tex">a,b,c</script>：</p>
+<ul>
+<li><p><script type="math/tex">a[1]=2,a[2]=6</script>，对所有的<script type="math/tex">n>=3,a[n] = 2*a[n-1] + 3*a[n-2]</script>。 </p>
+</li>
+<li><p><script type="math/tex">b[1]=7,b[2]=35</script>，对所有的<script type="math/tex">n>=3,b[n] = 3*b[n-1] + 10*b[n-2]</script>。 </p>
+</li>
+</ul>
+<p>对所有的<script type="math/tex">n>=1</script>,有<script type="math/tex">c[n] = a[n]*b[n]</script>。</p>
+<p>现在给你一个正整数$n$,返回<script type="math/tex">c[n]%1000000007</script>的值。</p>
+<p>思路：</p>
+<p>根据题意可以推导出问题<script type="math/tex">c[n]</script>的公式：</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+c[n] &= 14 \times 15^{(n-1)},n>=1\\
+\end{aligned}
+\end{equation}</script><p>大数取余，一般常见有两种：</p>
+<ul>
+<li>求<script type="math/tex">A*a^b \mod m</script>或者<script type="math/tex">A=1</script>，即<script type="math/tex">a^b \mod m</script>。其中<script type="math/tex">b</script>是一个很大的数，因此<script type="math/tex">A*a^b</script>很大，先求<script type="math/tex">A*a^b</script>再对<script type="math/tex">m</script>取余不现实；</li>
+<li><script type="math/tex">a \mod m</script>，其中<script type="math/tex">a</script>是一个很大的数，一般无法用已知的数据类型存储，直接取余很困难。</li>
+</ul>
+<p>常见的公式：</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+\left(d+e\right)\mod m &= \left[\left(d \mod m\right) + \left(e \mod m \right)\right] \mod m \\
+\left(d \times e\right)\mod m &= \left[\left(d \mod m\right) \times \left(e \mod m \right)\right] \mod m\\
+d^k \mod m &= \left(d \mod m \right)^k \mod m
+\end{aligned}
+\end{equation}</script><p>可以想到的解法是<script type="math/tex">n-1</script>方分开乘，每次乘之后取余，最终再次取余，只通过<script type="math/tex">50%</script>用例，复杂度为<script type="math/tex">O(n)</script>：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Answerforcn</span><span class="params">(self , n )</span>:</span></span><br><span class="line">        <span class="comment"># write code here</span></span><br><span class="line">        rem = <span class="number">14</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            rem = rem * <span class="number">15</span> % <span class="number">1000000007</span></span><br><span class="line">        <span class="keyword">return</span> rem % <span class="number">1000000007</span></span><br></pre></td></tr></table></figure>
+<p>后来想到了快速幂，即将$m$写成二进制形式：</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+b &= b_0 \times 2^0 +b_1 \times 2^1+ \dots + b_{r-1}2^{\left(r-1\right)}\\
+a^b &= \left(a^{2^0}\right)^{b_0} \times \left(a^{2^1}\right)^{b_1} \times \dots \times \left(a^{2^{r-1}}\right)^{b_{r-1}}\\
+a^b \mod m &= \left(\left(\left(a^{2^0}\right)^{b_0} \mod m \right) \times \left(\left(a^{2^1}\right)^{b_1} \mod m \right) \times \dots \times  \left(\left(a^{2^{r-1}}\right)^{b_{r-1}} \mod m \right) \right) \mod m\\
+\end{aligned}
+\end{equation}</script><p>因此可以这样改写，通过测试：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Answerforcn</span><span class="params">(self , n )</span>:</span></span><br><span class="line">        <span class="comment"># write code here</span></span><br><span class="line">        <span class="comment"># c[n] = 14 * 15 ** (n-1)</span></span><br><span class="line">        A = <span class="number">14</span></span><br><span class="line">        c = <span class="number">15</span></span><br><span class="line">        n = n<span class="number">-1</span></span><br><span class="line">        m = <span class="number">1000000007</span></span><br><span class="line">        rem = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> n % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">               rem = rem * c % m</span><br><span class="line">            c = c * c % m</span><br><span class="line">            n //= <span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> rem * A % m</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+  <entry>
     <title>Linux知识点笔记</title>
     <url>/2020/11/12/Linux%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p>这篇博客主要记录自己在使用Linux服务器时，常使用的一些命令以及需要掌握的知识。其中部分内容参考了一些博主的总结，并附上了参考链接，后续内容会根据自己的学习历程持续更新。</p>
@@ -321,7 +371,7 @@
 <li>/something: 在后面的文本中查找something。</li>
 <li>?something: 在前面的文本中查找something。</li>
 </ul>
-<h3 id="参考-2"><a href="#参考-2" class="headerlink" title="参考"></a>参考</h3><p><a href="https://zhuanlan.zhihu.com/p/51440836" target="_blank" rel="noopener">史上最全的Vim命令</a></p>
+<h2 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h2><h3 id="参考-2"><a href="#参考-2" class="headerlink" title="参考"></a>参考</h3><p><a href="https://zhuanlan.zhihu.com/p/51440836" target="_blank" rel="noopener">史上最全的Vim命令</a></p>
 ]]></content>
       <categories>
         <category>Linux</category>
