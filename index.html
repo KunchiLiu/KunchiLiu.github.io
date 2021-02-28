@@ -252,7 +252,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-28 18:57:50" itemprop="dateModified" datetime="2021-02-28T18:57:50+08:00">2021-02-28</time>
+                <time title="修改时间：2021-02-28 18:59:47" itemprop="dateModified" datetime="2021-02-28T18:59:47+08:00">2021-02-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -294,131 +294,14 @@
           <p>2020年10月，在CCF大赛主页看到了<a href="https://www.datafountain.cn/competitions/451" target="_blank" rel="noopener">风电机组异常数据识别与清洗</a>的比赛，提供了12台风机的一年的SCADA（数据采集与监视控制系统）真实运行数据，因为收集的数据来自实际运行的风机，存在大量异常点，举办方希望参赛者根据提供的数据集建立无监督聚类模型，识别出SCADA数据中的异常数据。我们比赛中最好成绩排名为第6名，后来有好多大神找到了更多的异常点，排名直线上升。我们A榜最终成绩排名为15/1122，B榜最终成绩排名为18/1122。</p>
 <p>CCF大赛官网：<a href="https://www.datafountain.cn/competitions" target="_blank" rel="noopener">https://www.datafountain.cn/competitions</a></p>
 <p>比赛链接：<a href="https://www.datafountain.cn/competitions/451" target="_blank" rel="noopener">https://www.datafountain.cn/competitions/451</a></p>
-<h2 id="赛题任务"><a href="#赛题任务" class="headerlink" title="赛题任务"></a>赛题任务</h2><p>依据提供的12台风力电机1年的10min间隔SCADA运行数据，<strong>包括时间戳信息、风速信息、风机转速信息和功率信息等</strong>，利用机器学习相关技术，建立鲁棒的风电机组异常数据检测模型，用于识别并剔除潜在的异常数据，提高数据质量。此任务未给出异常数据标签，可看做聚类任务，为引导选手向赛题需求对接，现简单阐述异常数据定义。异常数据是由风机运行过程与设计运行工况出现较大偏离时产生，如风速仪测风异常导致采集的功率散点明显偏离设计风功率。</p>
-<h2 id="数据说明"><a href="#数据说明" class="headerlink" title="数据说明"></a>数据说明</h2><ul>
-<li><p>数据文件依次为：</p>
-<p>| 文件类别 | 文件名         | 文件内容                          |<br>| ———— | ——————— | ————————————————- |<br>| 数据集   | dataset.csv    | 12台风机运行数据文件，无标签      |<br>| 提交样例 | submission.csv | 仅有三个字段WindNumber\Time\label |</p>
-</li>
-<li><p>数据集中各个字段说明如下：</p>
-<p>| 字段英文名 | 字段中文名 |<br>| ————— | ————— |<br>| Time       | 时间戳     |<br>| WindSpeed  | 风速       |<br>| Power      | 功率       |<br>| RotorSpeed | 风轮转速   |<br>| WindNumber | 风机编号   |</p>
-</li>
-<li><p>风机参数说明如下：</p>
-<p>| 风机编号 | 风轮直径 | 额定功率 | 切入风速 | 切出风速 | 风轮转速范围 |<br>| ———— | ———— | ———— | ———— | ———— | —————— |<br>|          | (m)      | (kW)     | (m/s)    | (m/s)    | (r/min)      |<br>| 1#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 2#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 3#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 4#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 5#       | 100.5    | 2000     | 3        | 22       | 5.5-19       |<br>| 6#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 7#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 8#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 9#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 10#      | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 11#      | 115      | 2000     | 2.5      | 19       | 5-14         |<br>| 12#      | 104.8    | 2000     | 3        | 22       | 5.5-17       |</p>
-</li>
-<li><p>另外，评测标准是12台风机的平均F1值。</p>
-</li>
-</ul>
-<h2 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h2><p>首先，解决这个赛题的方法是无监督学习方法。不是简单的二分类问题，因为没有标签。如果通过半监督的方式进行人为打标，会由于数据量大、费事费力、标注不一定准确，而导致风险过大，造成过拟合。然后，我们发现12台风机的特征中【时间戳，风速，风轮转速，功率】，时间戳是以10分钟为间隔进行采集的，这是一致的。因此，在后续主要分析了风速与功率、风轮转速与功率的关系，即三个特征【风速，风轮转速，功率】。接下来，我们分别计算了12台风机中三个特征的协方差系数，发现风速和风轮转速的相似程度很高，因此，在后续的聚类方法中，更多的是只考虑风速和功率之间的散点图关系，来评估每种方法检测出的异常点是否合理。</p>
-<h3 id="单个特征的可视化"><a href="#单个特征的可视化" class="headerlink" title="单个特征的可视化"></a>单个特征的可视化</h3><ul>
-<li>12台风机的功率密度直方图：可以看出每台风机功率的分布并不是呈现正态分布，12台风机功率在0值附近概率分布较大。</li>
-</ul>
-<p><img src="/2021/02/25/CCF2020%E9%A3%8E%E7%94%B5%E6%9C%BA%E7%BB%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B8%85%E6%B4%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/Power.png" alt="power"></p>
-<ul>
-<li>12台风轮转速密度直方图：从图中可以看出除了10号风机，其他的风轮转速为0的概率密度较高，12号风轮更为异常。因此，可以分析分析出风轮转速应主要集中于8-15之间，在此范围外的风机转速出现异常数据可能性较大。</li>
-</ul>
-<p><img src="/2021/02/25/CCF2020%E9%A3%8E%E7%94%B5%E6%9C%BA%E7%BB%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B8%85%E6%B4%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/RotorSpeed.png" alt="image-20210227121726076"></p>
-<ul>
-<li>风速密度直方图：可以看出大部分风机的样本风速呈现正态分布，其中6号风机和12号风机呈现正偏态。</li>
-</ul>
-<p><img src="/2021/02/25/CCF2020%E9%A3%8E%E7%94%B5%E6%9C%BA%E7%BB%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B8%85%E6%B4%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/WindSpeed.png" alt="image-20210227121736954"></p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>我们的方法主要</p>
-<h3 id="基于规则的方法"><a href="#基于规则的方法" class="headerlink" title="基于规则的方法"></a>基于规则的方法</h3><p>这里主要根据数据说明中的风机参数来进行判定，起初我们严格按照每天风机对应的参数来检测出每台风机的异常点（第一步检测），后来，看群里讨论，说给定的风轮转速偏高，于是我们进行逐步检测，比如同一类型的一致，不同类型的分别测，最终找的较为理想的是风轮转速全部定为5r/min为最好（这里我们不一定测得是最优值）。故基于规则的方法将判断出3类异常点：</p>
-<ul>
-<li>小于0的风速、小于0的风机功率以及风轮转速小于5的记录标记为异常点。</li>
-<li>低于对应风机的切入风速，且风机功率大于0的记录标记为异常点。</li>
-<li>所有风速大于12.5m/s且功率在1500kW以下的记录标记为异常点。</li>
-</ul>
-<p>此时，可以看一下风速-功率曲线图（红色点为当前步骤筛选出的异常点）：</p>
-<p><img src="/2021/02/25/CCF2020%E9%A3%8E%E7%94%B5%E6%9C%BA%E7%BB%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B8%85%E6%B4%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/WindSpeed_Power_0-Gt-Zero-Condition_all.png" alt="WindSpeed_Power_0-Gt-Zero-Condition_all">上述可以发现部分风机都有多条风速-功率曲线，但只有一条是正常值，比如3号和4号风机，矮的肯定是异常点，接下来讲述如何去掉唉矮的这条曲线。</p>
-<ul>
-<li><p>准备工作，这里要用到风轮转速立方-功率曲线，利用下文提到的四分位法，不过不是按25%和75%划分，而是0%到90%来还划分，风轮转速立方的间隔取100，每个风机的风轮转速立方范围不一致，所以有哦不同的总间隔数。这里去掉这些散点，是为了便于下一步的保留一条曲线。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># except_one_step()每个风机分开执行</span></span><br><span class="line">result = except_one_step(dataset=dataset_pr,model=QuartileModel(by=(<span class="string">'RotorSpeedCube'</span>, <span class="number">100</span>), low_percent=<span class="number">0</span>, high_percent=<span class="number">90</span>), del_col=<span class="string">'WindSpeed'</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>去除其他风轮转速立方-功率异常曲线，只保留一条。具体操作是异常曲线的点密度低于正常曲线（比较细长），对于风机功率，我们取100为间隔，对于风轮转速立方，我们取50为间隔，统计个每个区间内点的个数。小于10的异常的区间，大于50的我们将其作为正常值，也可看做有效最高峰。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = except_one_step(dataset=dataset_pr,model=SplitHistogram(bin_col=<span class="string">'Power'</span>, bin_range=<span class="number">50</span>, by=(<span class="string">'RotorSpeedCube'</span>, <span class="number">50</span>)), del_col=<span class="string">'WindSpeed'</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>但是上述两步会存在误标点，即把正常的点标记为异常的点，比如风机5和风机11有很多误标点。因此这两步检测出的异常点为记录下来，后续会利用恢复模型来将其纠正为正常点。利用风轮转速处理后，得到的风速-风机功率曲线图如下：</p>
-</li>
-</ul>
-<p><img src="/2021/02/25/CCF2020%E9%A3%8E%E7%94%B5%E6%9C%BA%E7%BB%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B8%85%E6%B4%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/WindSpeed_Power_2-PR-SplitHistogram-RotorSpeedCube_all.png" alt="WindSpeed_Power_0-Gt-Zero-Condition_all"></p>
-<h3 id="四分位法（Quartile-Method）"><a href="#四分位法（Quartile-Method）" class="headerlink" title="四分位法（Quartile Method）"></a>四分位法（Quartile Method）</h3><p>四分位数法是找到将有序数据集划分为四个相等部分的三个数值，每个部分包含数据集中总观测值的25%。举个例子来说，一个风机数据集包含<script type="math/tex">n</script>个功率观测值<script type="math/tex">\boldsymbol{P}_v={p_1,p_2,...,p_n}</script>，那么如何利用四分位法检测异常值呢？</p>
-<ol>
-<li><p>计算第二个分位数<script type="math/tex">P_2</script>，即找到中位数：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-P_2
-\begin{cases}
-p_{\frac{n+1}{2}} &n=2k+1;k=0,1,2,... \\
-0.5p_{\frac{n}{2}}+0.5p_{\frac{n+2}{2}} &n=2k,k=1,2,...
-\end{cases}
-\end{aligned}</script></li>
-<li><p>计算第一个和第三个分位数：</p>
-<ul>
-<li><p>如果<script type="math/tex">n=2k(k=1,2,3,...)</script>，可利用第一步的<script type="math/tex">P_2</script>将<script type="math/tex">\boldsymbol{P}_v</script>分为两部分，利用1种的公式找到俩部分的二分位数记为<script type="math/tex">P_1</script>和<script type="math/tex">P_3</script>。</p>
-</li>
-<li><p>如果<script type="math/tex">n=4k+3(k=0，1,2,...)</script>，则：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-P1 &=0.75p_{k+1} + 0.25p_{k+2}\\
-P3 &=0.25p_{3k+2} + 0.75p_{3k+3}
-\end{aligned}</script></li>
-<li><p>如果<script type="math/tex">n=4k+1(k=0,1,2,...)</script>，则：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-P1 &=0.25p_{k} + 0.75p_{k+1}\\
-P3 &=0.75p_{3k+1} + 0.25p_{3k+2}
-\end{aligned}</script></li>
-</ul>
-</li>
-<li><p>正常数据和异常数据判断。得到了<script type="math/tex">P_1</script>和<script type="math/tex">P_3</script>，我们可以计算出四分位间距（Interquartile Range，IQR）：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-IQR = P_3 - P_1
-\end{aligned}</script><p>则<script type="math/tex">\boldsymbol{P}_v</script>的正常数据范围为：</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-{[F_l,F_u]} &=[P_1 - 1.5IQR,P_3+1.5IQR]\\
-\end{aligned}</script><p>其中<script type="math/tex">F_l</script>为下界，<script type="math/tex">F_u</script>为上界。</p>
-</li>
-</ol>
-<p>一般来说，真实场景下风机采集的数据风速-风机功率的曲线图如下所示，可以看出以不同轴划分区间，<script type="math/tex">F_l</script>和<script type="math/tex">F_u</script>之间包含的点基本上都是正常点。下图可以看到只有一条明显的风速-功率曲线，所以我们才要在第一步利用规则的方法去掉风机参数外的异常点和低功率曲线异常点：</p>
-<p><img src="/2021/02/25/CCF2020%E9%A3%8E%E7%94%B5%E6%9C%BA%E7%BB%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B8%85%E6%B4%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/vp_scatters.png" alt="vp_scatters"></p>
-<p>利用四分位法，我们去除了稀疏离群点，包括水平稀疏离群值和垂直稀疏离群点。其中，我们取风机功率的间隔为25，去除了水平稀疏离群点；取风速的间隔为0.5，去除了垂直稀疏离群点，这里离群点即异常点。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = except_one_step(dataset=dataset,model=QuartileModel(by=(<span class="string">'Power'</span>, <span class="number">25</span>), low_percent=<span class="number">25</span>, high_percent=<span class="number">75</span>),del_col=<span class="string">'RotorSpeed'</span>)</span><br><span class="line">result = except_one_step(dataset=dataset,model=QuartileModel(by=(<span class="string">'WindSpeed'</span>, <span class="number">0.5</span>), low_percent=<span class="number">25</span>, high_percent=<span class="number">85</span>),del_col=<span class="string">'RotorSpeed'</span>)</span><br></pre></td></tr></table></figure>
-<p>结果如下图：</p>
-<p><img src="/2021/02/25/CCF2020%E9%A3%8E%E7%94%B5%E6%9C%BA%E7%BB%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B8%85%E6%B4%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/WindSpeed_Power_4-PV-Quartile-WindSpeed_all.png" alt="WindSpeed_Power_4-PV-Quartile-WindSpeed_all">下面介绍的是如何利用基于密度聚类的方法检测异常点。</p>
-<h3 id="基于密度聚类的方法"><a href="#基于密度聚类的方法" class="headerlink" title="基于密度聚类的方法"></a>基于密度聚类的方法</h3><p>聚类是无监督学习的重要方法，常见的有哦K-means聚类和分层聚类等，它们把一些对象划分为不同的簇，使得同一个簇内的对象都具有相似的特征，不同簇内的对象则表现出很大的差异。对于不同的风机，由异常点组成的异常簇数量未知且不相同。因此，像K-means这类方法并不适用，因此这里采用了DBSCAN（Density-Based Spatial Clustering of Applications with Noise，具有噪声的基于密度的聚类方法），它的核心思想是：对于一个簇中的每一个点，该点给定半径范围内至少包含最小数量的点，这个数量记为MinPts。这里先标准化</p>
-<p>同样，对于包含<script type="math/tex">n</script>个功率观测值<script type="math/tex">\boldsymbol{P}_v={p_1,p_2,...,p_n}</script>，DBSCAN的部分定义如下：</p>
-<ol>
-<li>记<script type="math/tex">\boldsymbol{N}_{\varepsilon}(p_i)=\{ p_j \in \boldsymbol{P}_v | dist(p_i, p_j) \le \varepsilon\}</script>为<strong>点<script type="math/tex">p_i</script>的邻域</strong>，其中距离函数<script type="math/tex">dist(p_i, p_j)</script>选用欧式距离；</li>
-<li>如果<script type="math/tex">p_j \in \boldsymbol{N}_{\varepsilon}(p_i)</script>，且<script type="math/tex">p_i</script>的<script type="math/tex">\varepsilon-</script>邻域对应的<script type="math/tex">\boldsymbol{N}_{\varepsilon}(p_i)</script>至少包含MinPts的点，则称点<script type="math/tex">p_j</script>是点<script type="math/tex">p_i</script><strong>密度直达</strong>的点，<script type="math/tex">p_i</script>是一个核心点；（不具有对称性）</li>
-<li>同样，若从点<script type="math/tex">p_i</script>到点<script type="math/tex">p_{i+1}</script>是密度可达的，<script type="math/tex">p_i</script>到<script type="math/tex">p_j</script>中间有一连串密度可达的点，即<script type="math/tex">p_i,p_{i+1},...,p_j</script>，那么<script type="math/tex">p_i</script>到<script type="math/tex">p_j</script>也是<strong>密度可达</strong>的。（不具有对称性）</li>
-<li>对于<script type="math/tex">x_i</script>和<script type="math/tex">x_j</script>，如果存在核心点<script type="math/tex">x_k</script>，使<script type="math/tex">x_i, x_j</script>均由<script type="math/tex">x_k</script>密度可达，则称<script type="math/tex">x_i</script>和<script type="math/tex">x_j</script><strong>密度相连</strong>。（具有对称性）</li>
-<li>对于<script type="math/tex">\varepsilon-</script>邻域和MinPts，一个簇<script type="math/tex">\boldsymbol{C}</script>是满足如下条件的<script type="math/tex">\boldsymbol{P}_v</script>的非空子集：<ul>
-<li>对于<script type="math/tex">\forall p_i,p_j</script>，<script type="math/tex">p_i \in \boldsymbol{C}</script>且<script type="math/tex">p_j</script>由<script type="math/tex">p_i</script>密度可达，那么<script type="math/tex">p_j \in \boldsymbol{C}</script>；</li>
-<li>对于<script type="math/tex">\forall p_i,p_j \in \boldsymbol{C}</script>，<script type="math/tex">p_j</script>和<script type="math/tex">p_i</script>密度相连。</li>
-</ul>
-</li>
-<li>异常点（噪声）是不属于任何簇的点。</li>
-</ol>
-<p>DBSCAN的处理步骤如下：</p>
-<ol>
-<li>设定<script type="math/tex">\varepsilon=0.15</script>，MinPts都设定为7，选的是调参得到的最优值，这里要提前将风速和功率最大最小归一化。</li>
-<li>任意选择一个点<script type="math/tex">p_i</script>，将它标记为已访问，计算出在<script type="math/tex">\varepsilon</script>和MinPts设定下满足密度连接的点，如果<script type="math/tex">p_i</script>是一个核心点，找它的<script type="math/tex">\varepsilon-</script>邻域<script type="math/tex">\boldsymbol{N}</script>，生成一个新的仅包含<script type="math/tex">p_i</script>的簇<script type="math/tex">\boldsymbol{C}</script>；否则标记为异常点。</li>
-<li>遍历<script type="math/tex">\varepsilon-</script>邻域<script type="math/tex">\boldsymbol{N}</script>的每一个点<script type="math/tex">p_j</script>，如果它不属于任何簇，把它加入到簇<script type="math/tex">\boldsymbol{C}</script>；如果它是一个核心点，把<script type="math/tex">p_j</script>的<script type="math/tex">\varepsilon-</script>邻域合并到<script type="math/tex">\boldsymbol{N}</script></li>
-<li>重复步骤3，直到不能找到核心点，然后返回步骤2。</li>
-</ol>
-<p>结果如下：</p>
-<p><img src="/2021/02/25/CCF2020%E9%A3%8E%E7%94%B5%E6%9C%BA%E7%BB%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B8%85%E6%B4%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/WindSpeed_Power_5-DBSCAN-WindSpeed_all.png" alt="WindSpeed_Power_5-DBSCAN-WindSpeed_all"></p>
-<p>误标点恢复主要是判断正产点的左右边界，将边界内的误标点都恢复成正常点即可。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://ieeexplore.ieee.org/document/7953532" target="_blank" rel="noopener">Data-Driven Correction Approach to Reﬁne Power Curve of Wind Farm Under Wind Curtailment</a></li>
-<li><a href="https://ccpt.cnki.net/kcms/detail/detail.aspx?filename=DLXT201421007&amp;dbcode=&amp;dbname=CJFD2014&amp;pcode=CRJT&amp;v=MjAwNjhuRDBMVGcyWDJoc3hGckNVUjdxZVplWm1GaW5sVUxyTElTSFRlckc0SDlYT3JvOUZZNFIrQzM4NHpoNFg=&amp;uid=WEEvREcwSlJHSldSdmVqMDh6a1dqRHN5WVAyOERQUldMaExObWJPc1hoST0=$9A4hF_YAuvQ5obgVAqNKPCYcEjKensW4IQMovwHtwkF4VYPoHbKxJw!!" target="_blank" rel="noopener">风电场弃风异常数据簇的特征及处理方法</a></li>
-<li><a href="https://blog.csdn.net/weixin_44132035/article/details/108973264" target="_blank" rel="noopener">数据挖掘—风电机组异常数据识别与清洗</a></li>
-<li><a href="https://www.cnblogs.com/pinard/p/6208966.html" target="_blank" rel="noopener">DBSCAN密度聚类算法</a></li>
-<li><a href="https://www.cnblogs.com/pinard/p/6217852.html" target="_blank" rel="noopener">用scikit-learn学习DBSCAN聚类 </a></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/02/25/CCF2020%E9%A3%8E%E7%94%B5%E6%9C%BA%E7%BB%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B8%85%E6%B4%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
