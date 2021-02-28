@@ -63,7 +63,7 @@
 <meta property="og:image" content="http://yoursite.com/2021/02/25/CCF2020%E9%A3%8E%E7%94%B5%E6%9C%BA%E7%BB%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B8%85%E6%B4%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/WindSpeed_Power_4-PV-Quartile-WindSpeed_all.png">
 <meta property="og:image" content="http://yoursite.com/2021/02/25/CCF2020%E9%A3%8E%E7%94%B5%E6%9C%BA%E7%BB%84%E5%BC%82%E5%B8%B8%E6%95%B0%E6%8D%AE%E8%AF%86%E5%88%AB%E4%B8%8E%E6%B8%85%E6%B4%97%E6%96%B9%E6%A1%88%E5%88%86%E4%BA%AB/WindSpeed_Power_5-DBSCAN-WindSpeed_all.png">
 <meta property="article:published_time" content="2021-02-25T03:43:12.000Z">
-<meta property="article:modified_time" content="2021-02-28T10:59:47.795Z">
+<meta property="article:modified_time" content="2021-02-28T11:02:00.385Z">
 <meta property="article:author" content="刘坤池">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="无监督学习">
@@ -268,7 +268,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-28 18:59:47" itemprop="dateModified" datetime="2021-02-28T18:59:47+08:00">2021-02-28</time>
+                <time title="修改时间：2021-02-28 19:02:00" itemprop="dateModified" datetime="2021-02-28T19:02:00+08:00">2021-02-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -295,7 +295,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.7k</span>
+              <span>5.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -320,17 +320,191 @@
 <a id="more"></a>
 <h2 id="赛题任务"><a href="#赛题任务" class="headerlink" title="赛题任务"></a>赛题任务</h2><p>依据提供的12台风力电机1年的10min间隔SCADA运行数据，<strong>包括时间戳信息、风速信息、风机转速信息和功率信息等</strong>，利用机器学习相关技术，建立鲁棒的风电机组异常数据检测模型，用于识别并剔除潜在的异常数据，提高数据质量。此任务未给出异常数据标签，可看做聚类任务，为引导选手向赛题需求对接，现简单阐述异常数据定义。异常数据是由风机运行过程与设计运行工况出现较大偏离时产生，如风速仪测风异常导致采集的功率散点明显偏离设计风功率。</p>
 <h2 id="数据说明"><a href="#数据说明" class="headerlink" title="数据说明"></a>数据说明</h2><ul>
-<li><p>数据文件依次为：</p>
-<p>| 文件类别 | 文件名         | 文件内容                          |<br>| ———— | ——————— | ————————————————- |<br>| 数据集   | dataset.csv    | 12台风机运行数据文件，无标签      |<br>| 提交样例 | submission.csv | 仅有三个字段WindNumber\Time\label |</p>
-</li>
-<li><p>数据集中各个字段说明如下：</p>
-<p>| 字段英文名 | 字段中文名 |<br>| ————— | ————— |<br>| Time       | 时间戳     |<br>| WindSpeed  | 风速       |<br>| Power      | 功率       |<br>| RotorSpeed | 风轮转速   |<br>| WindNumber | 风机编号   |</p>
-</li>
-<li><p>风机参数说明如下：</p>
-<p>| 风机编号 | 风轮直径 | 额定功率 | 切入风速 | 切出风速 | 风轮转速范围 |<br>| ———— | ———— | ———— | ———— | ———— | —————— |<br>|          | (m)      | (kW)     | (m/s)    | (m/s)    | (r/min)      |<br>| 1#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 2#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 3#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 4#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 5#       | 100.5    | 2000     | 3        | 22       | 5.5-19       |<br>| 6#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 7#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 8#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 9#       | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 10#      | 99       | 2000     | 3        | 25       | 8.33-16.8    |<br>| 11#      | 115      | 2000     | 2.5      | 19       | 5-14         |<br>| 12#      | 104.8    | 2000     | 3        | 22       | 5.5-17       |</p>
-</li>
-<li><p>另外，评测标准是12台风机的平均F1值。</p>
-</li>
+<li>数据文件依次为：</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>文件类别</th>
+<th>文件名</th>
+<th>文件内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据集</td>
+<td>dataset.csv</td>
+<td>12台风机运行数据文件，无标签</td>
+</tr>
+<tr>
+<td>提交样例</td>
+<td>submission.csv</td>
+<td>仅有三个字段WindNumber\Time\label</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>数据集中各个字段说明如下：</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>字段英文名</th>
+<th>字段中文名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time</td>
+<td>时间戳</td>
+</tr>
+<tr>
+<td>WindSpeed</td>
+<td>风速</td>
+</tr>
+<tr>
+<td>Power</td>
+<td>功率</td>
+</tr>
+<tr>
+<td>RotorSpeed</td>
+<td>风轮转速</td>
+</tr>
+<tr>
+<td>WindNumber</td>
+<td>风机编号</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>风机参数说明如下：</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>风机编号</th>
+<th>风轮直径</th>
+<th>额定功率</th>
+<th>切入风速</th>
+<th>切出风速</th>
+<th>风轮转速范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>(m)</td>
+<td>(kW)</td>
+<td>(m/s)</td>
+<td>(m/s)</td>
+<td>(r/min)</td>
+</tr>
+<tr>
+<td>1#</td>
+<td>99</td>
+<td>2000</td>
+<td>3</td>
+<td>25</td>
+<td>8.33-16.8</td>
+</tr>
+<tr>
+<td>2#</td>
+<td>99</td>
+<td>2000</td>
+<td>3</td>
+<td>25</td>
+<td>8.33-16.8</td>
+</tr>
+<tr>
+<td>3#</td>
+<td>99</td>
+<td>2000</td>
+<td>3</td>
+<td>25</td>
+<td>8.33-16.8</td>
+</tr>
+<tr>
+<td>4#</td>
+<td>99</td>
+<td>2000</td>
+<td>3</td>
+<td>25</td>
+<td>8.33-16.8</td>
+</tr>
+<tr>
+<td>5#</td>
+<td>100.5</td>
+<td>2000</td>
+<td>3</td>
+<td>22</td>
+<td>5.5-19</td>
+</tr>
+<tr>
+<td>6#</td>
+<td>99</td>
+<td>2000</td>
+<td>3</td>
+<td>25</td>
+<td>8.33-16.8</td>
+</tr>
+<tr>
+<td>7#</td>
+<td>99</td>
+<td>2000</td>
+<td>3</td>
+<td>25</td>
+<td>8.33-16.8</td>
+</tr>
+<tr>
+<td>8#</td>
+<td>99</td>
+<td>2000</td>
+<td>3</td>
+<td>25</td>
+<td>8.33-16.8</td>
+</tr>
+<tr>
+<td>9#</td>
+<td>99</td>
+<td>2000</td>
+<td>3</td>
+<td>25</td>
+<td>8.33-16.8</td>
+</tr>
+<tr>
+<td>10#</td>
+<td>99</td>
+<td>2000</td>
+<td>3</td>
+<td>25</td>
+<td>8.33-16.8</td>
+</tr>
+<tr>
+<td>11#</td>
+<td>115</td>
+<td>2000</td>
+<td>2.5</td>
+<td>19</td>
+<td>5-14</td>
+</tr>
+<tr>
+<td>12#</td>
+<td>104.8</td>
+<td>2000</td>
+<td>3</td>
+<td>22</td>
+<td>5.5-17</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>另外，评测标准是12台风机的平均F1值。</li>
 </ul>
 <h2 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h2><p>首先，解决这个赛题的方法是无监督学习方法。不是简单的二分类问题，因为没有标签。如果通过半监督的方式进行人为打标，会由于数据量大、费事费力、标注不一定准确，而导致风险过大，造成过拟合。然后，我们发现12台风机的特征中【时间戳，风速，风轮转速，功率】，时间戳是以10分钟为间隔进行采集的，这是一致的。因此，在后续主要分析了风速与功率、风轮转速与功率的关系，即三个特征【风速，风轮转速，功率】。接下来，我们分别计算了12台风机中三个特征的协方差系数，发现风速和风轮转速的相似程度很高，因此，在后续的聚类方法中，更多的是只考虑风速和功率之间的散点图关系，来评估每种方法检测出的异常点是否合理。</p>
 <h3 id="单个特征的可视化"><a href="#单个特征的可视化" class="headerlink" title="单个特征的可视化"></a>单个特征的可视化</h3><ul>
