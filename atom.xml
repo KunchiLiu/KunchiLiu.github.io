@@ -77,11 +77,11 @@
       <category term="强化学习" scheme="http://yoursite.com/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="深度学习" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
       <category term="强化学习" scheme="http://yoursite.com/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="多智能体强化学习" scheme="http://yoursite.com/tags/%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="深度学习" scheme="http://yoursite.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="神经网络" scheme="http://yoursite.com/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
     
@@ -133,6 +133,8 @@
       <category term="社区发现" scheme="http://yoursite.com/categories/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0/"/>
     
     
+      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
       <category term="社区发现" scheme="http://yoursite.com/tags/%E7%A4%BE%E5%8C%BA%E5%8F%91%E7%8E%B0/"/>
     
       <category term="聚类" scheme="http://yoursite.com/tags/%E8%81%9A%E7%B1%BB/"/>
@@ -140,8 +142,6 @@
       <category term="社交网络" scheme="http://yoursite.com/tags/%E7%A4%BE%E4%BA%A4%E7%BD%91%E7%BB%9C/"/>
     
       <category term="统计推断" scheme="http://yoursite.com/tags/%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD/"/>
-    
-      <category term="机器学习" scheme="http://yoursite.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   

@@ -610,9 +610,9 @@ i^*=\arg \max_i {y_i = f(x_i;\theta)}</script><h3 id="实验评估-3"><a href="#
         <category>强化学习</category>
       </categories>
       <tags>
-        <tag>深度学习</tag>
         <tag>强化学习</tag>
         <tag>多智能体强化学习</tag>
+        <tag>深度学习</tag>
         <tag>神经网络</tag>
         <tag>自然灾害</tag>
         <tag>智慧城市</tag>
@@ -1250,11 +1250,11 @@ q_{i\curvearrowright} =& \sum_{\alpha\in i}\sum_{\beta\not\in i} p_{\alpha} \lef
         <category>社区发现</category>
       </categories>
       <tags>
+        <tag>机器学习</tag>
         <tag>社区发现</tag>
         <tag>聚类</tag>
         <tag>社交网络</tag>
         <tag>统计推断</tag>
-        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
