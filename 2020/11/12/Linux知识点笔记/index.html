@@ -56,7 +56,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/2020/11/12/Linux%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AC%94%E8%AE%B0/top-c%E5%91%BD%E4%BB%A4%E6%88%AA%E5%9B%BE.png">
 <meta property="article:published_time" content="2020-11-12T02:36:49.000Z">
-<meta property="article:modified_time" content="2021-03-07T12:33:26.440Z">
+<meta property="article:modified_time" content="2021-04-11T10:34:33.041Z">
 <meta property="article:author" content="刘坤池">
 <meta property="article:tag" content="Linux命令">
 <meta name="twitter:card" content="summary">
@@ -256,7 +256,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-07 20:33:26" itemprop="dateModified" datetime="2021-03-07T20:33:26+08:00">2021-03-07</time>
+                <time title="修改时间：2021-04-11 18:34:33" itemprop="dateModified" datetime="2021-04-11T18:34:33+08:00">2021-04-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -283,7 +283,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.5k</span>
+              <span>4.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -632,8 +632,18 @@
 <ul>
 <li>输入:n，定位到第n行。</li>
 </ul>
+<h3 id="调到最后一行"><a href="#调到最后一行" class="headerlink" title="调到最后一行"></a>调到最后一行</h3><ul>
+<li>跳到文本的最后一行：按“G”,即“shift+g”</li>
+<li>跳到最后一行的最后一个字符 ：先重复1的操作即按“G”，之后按“$”键，即“shift+4”。</li>
+<li>跳到第一行的第一个字符：先按两次“g”，</li>
+<li>跳转到当前行的第一个字符：在当前行按“0”。</li>
+<li>需要按行快速移动光标时，可以使用键盘上的编辑键<strong>Home</strong>，快速将光标移动至<strong>当前行的行首</strong>。除此之外，也可以在命令模式中使用<strong>快捷键”^”（即Shift+6）或0（数字0）</strong>。</li>
+<li>如果要快速移动光标至当前行的<strong>行尾</strong>，可以使用编辑键<strong>End</strong>。也可以在命令模式中使用快捷键<strong>“$”（Shift+4</strong>）。与快捷键”^”和0不同，快捷键”$”前可以加上数字表示移动的行数。例如使用”1$”表示当前行的行尾，”2$”表示当前行的下一行的行尾。</li>
+<li>I是定位到行首，A是定位到行末。</li>
+</ul>
 <h3 id="参考-2"><a href="#参考-2" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://zhuanlan.zhihu.com/p/51440836" target="_blank" rel="noopener">史上最全的Vim命令</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/46359511" target="_blank" rel="noopener">vim 跳到最后一行和跳到最后一行的最后一个字符</a></li>
 </ul>
 <h2 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h2><h3 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/KunchiLiu/deep_pay</span><br></pre></td></tr></table></figure>
 <h3 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"aa"</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
@@ -763,7 +773,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#top-命令"><span class="nav-number">1.</span> <span class="nav-text">top 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一行-系统信息"><span class="nav-number">1.1.</span> <span class="nav-text">第一行  系统信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二行-进程信息"><span class="nav-number">1.2.</span> <span class="nav-text">第二行 进程信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三行-CPU使用情况"><span class="nav-number">1.3.</span> <span class="nav-text">第三行 CPU使用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四行-内存状态"><span class="nav-number">1.4.</span> <span class="nav-text">第四行 内存状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五行-swap交换分区信息"><span class="nav-number">1.5.</span> <span class="nav-text">第五行 swap交换分区信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六行-空行"><span class="nav-number">1.6.</span> <span class="nav-text">第六行 空行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七行-各进程（任务）的状态监控"><span class="nav-number">1.7.</span> <span class="nav-text">第七行 各进程（任务）的状态监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top后使用的命令"><span class="nav-number">1.8.</span> <span class="nav-text">top后使用的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.9.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#孤儿进程和僵尸进程"><span class="nav-number">2.</span> <span class="nav-text">孤儿进程和僵尸进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-1"><span class="nav-number">2.1.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pip和pip3命令"><span class="nav-number">3.</span> <span class="nav-text">pip和pip3命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim命令"><span class="nav-number">4.</span> <span class="nav-text">Vim命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找"><span class="nav-number">4.1.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定位到某一行"><span class="nav-number">4.2.</span> <span class="nav-text">定位到某一行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-2"><span class="nav-number">4.3.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git命令"><span class="nav-number">5.</span> <span class="nav-text">git命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆"><span class="nav-number">5.1.</span> <span class="nav-text">克隆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交"><span class="nav-number">5.2.</span> <span class="nav-text">提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地修改，pull最新"><span class="nav-number">5.3.</span> <span class="nav-text">本地修改，pull最新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除已push的文件-文件夹"><span class="nav-number">5.4.</span> <span class="nav-text">删除已push的文件&#x2F;文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强制覆盖"><span class="nav-number">5.5.</span> <span class="nav-text">强制覆盖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本回退"><span class="nav-number">5.6.</span> <span class="nav-text">版本回退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac下github-com无法访问"><span class="nav-number">5.7.</span> <span class="nav-text">Mac下github.com无法访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kill命令"><span class="nav-number">6.</span> <span class="nav-text">kill命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kill所有python进程"><span class="nav-number">6.1.</span> <span class="nav-text">kill所有python进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-3"><span class="nav-number">6.2.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell-脚本"><span class="nav-number">7.</span> <span class="nav-text">Shell 脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bin-bash-M错误"><span class="nav-number">7.1.</span> <span class="nav-text">&#x2F;bin&#x2F;bash&#x2F;^M错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-4"><span class="nav-number">7.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#top-命令"><span class="nav-number">1.</span> <span class="nav-text">top 命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一行-系统信息"><span class="nav-number">1.1.</span> <span class="nav-text">第一行  系统信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二行-进程信息"><span class="nav-number">1.2.</span> <span class="nav-text">第二行 进程信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三行-CPU使用情况"><span class="nav-number">1.3.</span> <span class="nav-text">第三行 CPU使用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四行-内存状态"><span class="nav-number">1.4.</span> <span class="nav-text">第四行 内存状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五行-swap交换分区信息"><span class="nav-number">1.5.</span> <span class="nav-text">第五行 swap交换分区信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六行-空行"><span class="nav-number">1.6.</span> <span class="nav-text">第六行 空行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七行-各进程（任务）的状态监控"><span class="nav-number">1.7.</span> <span class="nav-text">第七行 各进程（任务）的状态监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top后使用的命令"><span class="nav-number">1.8.</span> <span class="nav-text">top后使用的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.9.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#孤儿进程和僵尸进程"><span class="nav-number">2.</span> <span class="nav-text">孤儿进程和僵尸进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-1"><span class="nav-number">2.1.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pip和pip3命令"><span class="nav-number">3.</span> <span class="nav-text">pip和pip3命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim命令"><span class="nav-number">4.</span> <span class="nav-text">Vim命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找"><span class="nav-number">4.1.</span> <span class="nav-text">查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定位到某一行"><span class="nav-number">4.2.</span> <span class="nav-text">定位到某一行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调到最后一行"><span class="nav-number">4.3.</span> <span class="nav-text">调到最后一行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-2"><span class="nav-number">4.4.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git命令"><span class="nav-number">5.</span> <span class="nav-text">git命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆"><span class="nav-number">5.1.</span> <span class="nav-text">克隆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交"><span class="nav-number">5.2.</span> <span class="nav-text">提交</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地修改，pull最新"><span class="nav-number">5.3.</span> <span class="nav-text">本地修改，pull最新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除已push的文件-文件夹"><span class="nav-number">5.4.</span> <span class="nav-text">删除已push的文件&#x2F;文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强制覆盖"><span class="nav-number">5.5.</span> <span class="nav-text">强制覆盖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本回退"><span class="nav-number">5.6.</span> <span class="nav-text">版本回退</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac下github-com无法访问"><span class="nav-number">5.7.</span> <span class="nav-text">Mac下github.com无法访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kill命令"><span class="nav-number">6.</span> <span class="nav-text">kill命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kill所有python进程"><span class="nav-number">6.1.</span> <span class="nav-text">kill所有python进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-3"><span class="nav-number">6.2.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell-脚本"><span class="nav-number">7.</span> <span class="nav-text">Shell 脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bin-bash-M错误"><span class="nav-number">7.1.</span> <span class="nav-text">&#x2F;bin&#x2F;bash&#x2F;^M错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-4"><span class="nav-number">7.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -830,7 +840,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">45 分钟</span>
+    <span title="站点阅读时长">46 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
@@ -840,7 +850,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共27k字</span>
+  <span class="post-count">博客全站共27.3k字</span>
 </div>
         
 <div class="busuanzi-count">
